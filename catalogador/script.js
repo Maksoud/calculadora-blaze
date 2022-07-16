@@ -335,12 +335,15 @@ function analisarJogos(ultimaCor) {
 			// Começar a jogar
 			console.log("Saiu branco")
 
-			jogando    = true
-			jogandoAut = true
-			cVermelho  = 0
-			cPreto     = 0
-			rodada     = 0
-			rodadaAut  = 0
+			jogando   = true
+			cVermelho = 0
+			cPreto    = 0
+			rodada    = 0
+			
+			jogandoAut   = true
+			cAutVermelho = 0
+			cAutPreto    = 0
+			rodadaAut    = 0
 
 			jogar(ultimaCor)
 			jogadaAutomatizada(ultimaCor)

@@ -170,7 +170,7 @@ function jogadaAutomatizada(ultimaCor) {
 	if (ganhouAutCor && rodadaAut <= 4) {
 
 		console.log("GANHOU!")
-		console.log("FIM DO JOGO AUTOMATIZADO!")
+		console.log("FIM DO JOGO AUTOMATIZADO! Rodada " + rodadaAut)
 
 		jogandoAut = false
 		rodadaAut  = 0
@@ -178,7 +178,7 @@ function jogadaAutomatizada(ultimaCor) {
 	} else if (!ganhouAutCor && rodadaAut > 4) {
 
 		console.log("PERDEU!")
-		console.log("FIM DO JOGO AUTOMATIZADO!")
+		console.log("FIM DO JOGO AUTOMATIZADO! Rodada " + rodadaAut)
 
 		jogandoAut = false
 		rodadaAut  = 0
@@ -194,7 +194,7 @@ function jogadaAutomatizada(ultimaCor) {
 
 		/***************/
 
-		if (rodadaAut > 1 && ultimaCor == "white") console.log("MISERAVI ACERTÔ NO BRANCO")
+		if (rodadaAut > 1 && ultimaCor == "white") console.log("MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut)
 
 		/***************/
 
@@ -257,7 +257,7 @@ function jogar(ultimaCor) {
 
 	/***************/
 
-	if (rodada > 1 && ultimaCor == "white") console.log("MISERAVI ACERTÔ NO BRANCO")
+	if (rodada > 1 && ultimaCor == "white") console.log("MISERAVI ACERTÔ NO BRANCO! Rodada " + rodada)
 
 	/***************/
 
@@ -268,7 +268,7 @@ function jogar(ultimaCor) {
 
 		if (ultimaCor == "red") {
 			ganhouCor++
-			console.log("INFINITO GANHOU NO VERMELHO " + ganhouCor)
+			console.log("INFINITO GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
 		}// if (ultimaCor == "red")
 
 		console.log("ENTRA NO VERMELHO " + cVermelho)
@@ -283,7 +283,7 @@ function jogar(ultimaCor) {
 
 		if (ultimaCor == "black"){
 			ganhouCor++
-			console.log("INFINITO GANHOU NO PRETO " + ganhouCor);
+			console.log("INFINITO GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada);
 		}
 
 		console.log("ENTRA NO PRETO " + cPreto)

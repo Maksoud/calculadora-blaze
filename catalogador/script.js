@@ -203,7 +203,7 @@ function jogadaAutomatizada(ultimaCor) {
 		// ENTRADAS NO VERMELHO
 		if (cAutVermelho <= 2) {
 
-			if (ultimaCor == "red") {
+			if (ultimaCor == "red" && cAutVermelho > 1) {
 				
 				ganhouAutCor++
 				console.log("EST1: GANHOU NO VERMELHO " + rodadaAut)
@@ -223,7 +223,7 @@ function jogadaAutomatizada(ultimaCor) {
 
 			cAutPreto += 1
 			
-			if (ultimaCor == "black") {
+			if (ultimaCor == "black" && cAutPreto > 1) {
 				
 				ganhouAutCor++
 				console.log("EST1: GANHOU NO PRETO " + rodadaAut)
@@ -269,10 +269,10 @@ function jogar(ultimaCor) {
 	// ENTRADAS NO VERMELHO
 	if (cVermelho <= 2) {
 
-		if (ultimaCor == "red") {
+		if (ultimaCor == "red" && cVermelho > 1) {
 			ganhouCor++
 			console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
-		}// if (ultimaCor == "red")
+		}// (ultimaCor == "red" && cVermelho > 1)
 
 		console.log("EST2: ENTRA NO VERMELHO " + cVermelho)
 	
@@ -284,10 +284,10 @@ function jogar(ultimaCor) {
 
 		cPreto += 1
 
-		if (ultimaCor == "black"){
+		if (ultimaCor == "black" && cPreto > 1) {
 			ganhouCor++
 			console.log("EST2: GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada);
-		}
+		}// (ultimaCor == "black" && cPreto > 1)
 
 		console.log("EST2: ENTRA NO PRETO " + cPreto)
 

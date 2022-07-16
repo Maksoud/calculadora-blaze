@@ -149,6 +149,8 @@ if (pathname == "/pt/games/double") {
 
 /***************/
 
+boxCatalogador = document.querySelector('.boxCatalogadorDouble')
+
 let cAutVermelho = 0
 let cAutPreto    = 0
 let rodadaAut    = 0
@@ -172,7 +174,7 @@ function jogadaAutomatizada(ultimaCor) {
 	/***************/
 
 	// Analisa se ganhou na última jogada
-	if (ultimaCor == "white" && rodadaAut > 1) {
+	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 			
 		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut)
 
@@ -181,7 +183,7 @@ function jogadaAutomatizada(ultimaCor) {
 		cAutPreto    = 0
 		jogandoAut   = false
 
-	}// if (ultimaCor == "white" && rodadaAut > 1)
+	}// if (ultimaCor == "white")
 
 	if (ultimaCor == "red" && cAutVermelho > 1 && cAutVermelho <= 2 && rodadaAut <= 4) {
 
@@ -301,7 +303,7 @@ function jogar(ultimaCor) {
 
 	/***************/
 
-	if (rodada > 1 && ultimaCor == "white") {
+	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 
 		ganhouBco++
 		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " Rodada " + rodada)

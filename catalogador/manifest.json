@@ -1,0 +1,21 @@
+{
+  "name" : "Blaze Script",
+  "version" : "2.0",
+  "description" : "Catalogador de Probabilidade Matemática",
+  "content_scripts" : [
+    {
+      "matches" : [
+        "https://blaze.com/pt/games/double*",
+        "https://blaze.com/pt/games/crash*"
+      ],
+      "js" : ["jquery-3.6.0.min.js", "script.js"],
+      "css" : ["style.css"],
+      "run_at" : "document_end"
+    }
+  ],
+ 
+  "icons" : {
+    "48" : "icon.png"
+  },
+  "manifest_version": 3
+}

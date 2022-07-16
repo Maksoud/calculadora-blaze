@@ -169,16 +169,16 @@ function jogadaAutomatizada(ultimaCor) {
 	// Analisa se ganhou na última jogada
 	if (ganhouAutCor && rodadaAut <= 4) {
 
-		console.log("GANHOU!")
-		console.log("FIM DO JOGO AUTOMATIZADO! Rodada " + rodadaAut)
+		console.log("EST1: GANHOU!")
+		console.log("EST1: FIM DO JOGO! Rodada " + rodadaAut)
 
 		jogandoAut = false
 		rodadaAut  = 0
 
 	} else if (!ganhouAutCor && rodadaAut > 4) {
 
-		console.log("PERDEU!")
-		console.log("FIM DO JOGO AUTOMATIZADO! Rodada " + rodadaAut)
+		console.log("EST1: PERDEU!")
+		console.log("EST1: FIM DO JOGO! Rodada " + rodadaAut)
 
 		jogandoAut = false
 		rodadaAut  = 0
@@ -190,11 +190,11 @@ function jogadaAutomatizada(ultimaCor) {
 	// Jogando...
 	if (jogandoAut) {
 
-		if (rodadaAut == 1) console.log("COMEÇANDO JOGADA AUTOMATIZADA...")
+		if (rodadaAut == 1) console.log("EST1: COMEÇANDO JOGO...")
 
 		/***************/
 
-		if (rodadaAut > 1 && ultimaCor == "white") console.log("MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut)
+		if (rodadaAut > 1 && ultimaCor == "white") console.log("EST1: MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut)
 
 		/***************/
 
@@ -206,10 +206,11 @@ function jogadaAutomatizada(ultimaCor) {
 			if (ultimaCor == "red") {
 				
 				ganhouAutCor++
+				console.log("EST1: GANHOU NO VERMELHO " + rodadaAut)
 
 			} else {
 
-				console.log("ENTRA NO VERMELHO AUT " + cAutVermelho)
+				console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho)
 
 			}
 			
@@ -225,10 +226,11 @@ function jogadaAutomatizada(ultimaCor) {
 			if (ultimaCor == "black") {
 				
 				ganhouAutCor++
+				console.log("EST1: GANHOU NO PRETO " + rodadaAut)
 
 			} else {
 
-				console.log("ENTRA NO PRETO AUT " + cAutPreto)
+				console.log("EST1: ENTRA NO PRETO " + cAutPreto)
 
 			}
 
@@ -247,17 +249,18 @@ function jogadaAutomatizada(ultimaCor) {
 
 }// jogadaAutomatizada
 
+// EST2: 
 function jogar(ultimaCor) {
 
 	rodada += 1
 
 	/***************/
 
-	if (rodada == 1) console.log("COMEÇANDO JOGADA INFINITA...")
+	if (rodada == 1) console.log("EST2: COMEÇANDO JOGO...")
 
 	/***************/
 
-	if (rodada > 1 && ultimaCor == "white") console.log("MISERAVI ACERTÔ NO BRANCO! Rodada " + rodada)
+	if (rodada > 1 && ultimaCor == "white") console.log("EST2: MISERAVI ACERTÔ NO BRANCO! Rodada " + rodada)
 
 	/***************/
 
@@ -268,10 +271,10 @@ function jogar(ultimaCor) {
 
 		if (ultimaCor == "red") {
 			ganhouCor++
-			console.log("INFINITO GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
+			console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
 		}// if (ultimaCor == "red")
 
-		console.log("ENTRA NO VERMELHO " + cVermelho)
+		console.log("EST2: ENTRA NO VERMELHO " + cVermelho)
 	
 	}// if (cVermelho <= 2)
 
@@ -283,10 +286,10 @@ function jogar(ultimaCor) {
 
 		if (ultimaCor == "black"){
 			ganhouCor++
-			console.log("INFINITO GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada);
+			console.log("EST2: GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada);
 		}
 
-		console.log("ENTRA NO PRETO " + cPreto)
+		console.log("EST2: ENTRA NO PRETO " + cPreto)
 
 		// RECOMEÇA ANÁLISE
 		if (cPreto == 2) {

@@ -185,7 +185,7 @@ function jogadaAutomatizada(ultimaCor) {
 
 	}// if (ultimaCor == "white")
 
-	if (ultimaCor == "red" && cAutVermelho > 1 && cAutVermelho <= 2 && rodadaAut <= 4) {
+	if (ultimaCor == "red" && (cAutVermelho == 1 || cAutVermelho == 2) && rodadaAut <= 4) {
 
 		ganhouCorAut++
 
@@ -198,7 +198,7 @@ function jogadaAutomatizada(ultimaCor) {
 
 	}// if (ultimaCor == "red" && cAutVermelho > 1 && cAutVermelho <= 2 && rodadaAut <= 4)
 
-	if (ultimaCor == "black" && cAutPreto > 1 && cAutPreto <= 2 && rodadaAut <= 4) {
+	if (ultimaCor == "black" && (cAutPreto == 1 || cAutPreto == 2) && rodadaAut <= 4) {
 
 		ganhouCorAut++
 
@@ -279,7 +279,7 @@ function jogar(ultimaCor) {
 	/***************/
 
 	// Analisa se ganhou na última jogada
-	if (ultimaCor == "red" && cVermelho > 1 && cVermelho <= 2 && rodada <= 4) {
+	if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2) && rodada <= 4) {
 
 		ganhouCor++
 		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
@@ -290,7 +290,7 @@ function jogar(ultimaCor) {
 
 	}// if (ultimaCor == "red" && cVermelho > 1 && cVermelho <= 2 && rodada <= 4)
 
-	if (ultimaCor == "black" && cPreto > 1 && cPreto <= 2 && rodada <= 4) {
+	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2) && rodada <= 4) {
 
 		ganhouCor++
 		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada)

@@ -173,7 +173,6 @@ let perdeu       = 0
 function jogadaAutomatizada(ultimaCor, time) {
 
 	rodadaAut++
-	rodadaWinAut++
 
 	/***************/
 
@@ -299,8 +298,11 @@ function jogadaAutomatizada(ultimaCor, time) {
 		if (cAutVermelho <= 2) {
 
 			console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho + ", Rodada " + rodadaAut)
+
+			let msg = rodadaAut > 1 ? "ENTRA NO GALE " + (rodadaAut-1) : "OBEDEÇA O GERENCIAMENTO"
+
 			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+🔴 ENTRAR NO VERMELHO 🔴+%0A+OBEDEÇA O GERENCIAMENTO",
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+🔴 ENTRAR NO VERMELHO 🔴+%0A+" + msg
 			});
 			
 		}// if (cAutVermelho <= 2)
@@ -313,8 +315,11 @@ function jogadaAutomatizada(ultimaCor, time) {
 			cAutPreto += 1
 
 			console.log("EST1: ENTRA NO PRETO " + cAutPreto + ", Rodada " + rodadaAut)
+
+			let msg = rodadaAut > 1 ? "ENTRA NO GALE " + (rodadaAut-1) : "OBEDEÇA O GERENCIAMENTO"
+
 			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+⚫️ ENTRAR NO PRETO ⚫️+%0A+OBEDEÇA O GERENCIAMENTO",
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+⚫️ ENTRAR NO PRETO ⚫️+%0A+" + msg
 			});
 
 		}// if (cAutVermelho > 2)
@@ -328,10 +333,6 @@ function jogar(ultimaCor, time) {
 
 	rodada++
 	rodadaWin++
-
-	/***************/
-
-	if (rodada == 1) console.log("EST2: COMEÇANDO/CONTINUANDO O JOGO...")
 
 	/***************/
 
@@ -424,8 +425,10 @@ function jogar(ultimaCor, time) {
 	
 			console.log("EST2: ENTRA NO VERMELHO " + cVermelho + ", Rodada " + rodada)
 
+			let msg = rodadaWin > 1 ? "ENTRA NO GALE " + (rodadaWin-1) : "OBEDEÇA O GERENCIAMENTO"
+
 			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅ SINAL CONFIRMADO ✅+%0A+🔴 ENTRAR NO VERMELHO 🔴+%0A+OBEDEÇA O GERENCIAMENTO",
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=🔴 ENTRAR NO VERMELHO 🔴+%0A+" + msg
 			});
 		
 		}// if (cVermelho <= 2)
@@ -439,8 +442,10 @@ function jogar(ultimaCor, time) {
 	
 			console.log("EST2: ENTRA NO PRETO " + cPreto + ", Rodada " + rodada)
 
+			let msg = rodadaWin > 1 ? "ENTRA NO GALE " + (rodadaWin-1) : "OBEDEÇA O GERENCIAMENTO"
+
 			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅ SINAL CONFIRMADO ✅+%0A+⚫️ ENTRAR NO PRETO ⚫️+%0A+OBEDEÇA O GERENCIAMENTO",
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=⚫️ ENTRAR NO PRETO ⚫️+%0A+" + msg
 			});
 	
 		}// if (cVermelho > 2)

@@ -162,6 +162,7 @@ let perdeuAut    = 0
 let cVermelho    = 0
 let cPreto       = 0
 let rodada       = 0
+let rodadaWin    = 0
 let jogando      = false
 let ganhouCor    = 0
 let ganhouBco    = 0
@@ -169,14 +170,16 @@ let perdeu       = 0
 
 function jogadaAutomatizada(ultimaCor, time) {
 
-	rodadaAut += 1
+	rodadaAut++
 
 	/***************/
 
 	// Analisa se ganhou na última jogada
 	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
+
+		ganhouBcoAut++
 			
-		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut, time)
+		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -190,7 +193,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		ganhouCorAut++
 
-		console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut, time)
+		console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -204,7 +207,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		ganhouCorAut++
 
-		console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut, time)
+		console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -219,7 +222,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 		perdeuAut++
 
 		console.log("EST1: PERDEU!", time)
-		console.log("EST1: FIM DO JOGO! " + perdeuAut + " Rodada " + rodadaAut)
+		console.log("EST1: FIM DO JOGO! " + perdeuAut + ", Rodada " + rodadaAut)
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -243,7 +246,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 		// ENTRADAS NO VERMELHO
 		if (cAutVermelho <= 2) {
 
-			console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho + " Rodada " + rodadaAut)
+			console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho + ", Rodada " + rodadaAut)
 			
 		}// if (cAutVermelho <= 2)
 
@@ -254,7 +257,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 			cAutPreto += 1
 
-			console.log("EST1: ENTRA NO PRETO " + cAutPreto + " Rodada " + rodadaAut)
+			console.log("EST1: ENTRA NO PRETO " + cAutPreto + ", Rodada " + rodadaAut)
 
 			// FINALIZA JOGADAS
 			if (cAutPreto == 2) {
@@ -274,7 +277,8 @@ function jogadaAutomatizada(ultimaCor, time) {
 // EST2: 
 function jogar(ultimaCor, time) {
 
-	rodada += 1
+	rodada++
+	rodadaWin++
 
 	/***************/
 
@@ -283,36 +287,42 @@ function jogar(ultimaCor, time) {
 	/***************/
 
 	// Analisa se ganhou na última jogada
-	if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2) && rodada <= 4) {
+	if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2)) {
 
 		ganhouCor++
-		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada, time)
+		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " vezes, Rodada " + rodada, time)
+		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
+		rodadaWin = 0
 		// rodada    = 0
 		// cVermelho = 0
 		// cPreto    = 0
 
-	}// if (ultimaCor == "red" && cVermelho > 1 && cVermelho <= 2 && rodada <= 4)
+	}// if (ultimaCor == "red" && cVermelho > 1 && cVermelho <= 2)
 
-	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2) && rodada <= 4) {
+	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2)) {
 
 		ganhouCor++
-		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada, time)
+		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " vezes, Rodada " + rodada, time)
+		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
+		rodadaWin = 0
 		// rodada    = 0
 		// cVermelho = 0
 		// cPreto    = 0
 
-	}// if (ultimaCor == "black" && cPreto > 1 && cPreto <= 2 && rodada <= 4)
+	}// if (ultimaCor == "black" && cPreto > 1 && cPreto <= 2)
 
 	/***************/
 
 	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 
 		ganhouBco++
-		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " Rodada " + rodada, time)
+		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " vezes, Rodada " + rodada, time)
+		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
-		// rodada    = 0
+		rodadaWin = 0
+		rodada    = 0
 		// cVermelho = 0
 		// cPreto    = 0
 
@@ -323,7 +333,7 @@ function jogar(ultimaCor, time) {
 		// ENTRADAS NO VERMELHO
 		if (cVermelho <= 2) {
 	
-			console.log("EST2: ENTRA NO VERMELHO " + cVermelho + " Rodada " + rodada)
+			console.log("EST2: ENTRA NO VERMELHO " + cVermelho + ", Rodada " + rodada)
 		
 		}// if (cVermelho <= 2)
 	
@@ -333,7 +343,7 @@ function jogar(ultimaCor, time) {
 	
 			cPreto += 1
 	
-			console.log("EST2: ENTRA NO PRETO " + cPreto + " Rodada " + rodada)
+			console.log("EST2: ENTRA NO PRETO " + cPreto + ", Rodada " + rodada)
 	
 			// RECOMEÇA ANÁLISE
 			if (cPreto == 2) {

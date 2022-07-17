@@ -131,7 +131,7 @@ if (pathname == "/pt/games/double") {
 					if (ultimoNumero.match(/red/g))   ultCor = "red"
 					if (ultimoNumero.match(/white/g)) ultCor = "white"
 
-					analisarJogos(ultCor)
+					analisarJogos(ultCor, time)
 
 				}// if (verificaMudanca == "start")
 				
@@ -167,7 +167,7 @@ let ganhouCor    = 0
 let ganhouBco    = 0
 let perdeu       = 0
 
-function jogadaAutomatizada(ultimaCor) {
+function jogadaAutomatizada(ultimaCor, time) {
 
 	rodadaAut += 1
 
@@ -176,7 +176,8 @@ function jogadaAutomatizada(ultimaCor) {
 	// Analisa se ganhou na última jogada
 	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 			
-		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut)
+		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! Rodada " + rodadaAut, time)
+		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -189,7 +190,8 @@ function jogadaAutomatizada(ultimaCor) {
 
 		ganhouCorAut++
 
-		console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut)
+		console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut, time)
+		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -202,7 +204,8 @@ function jogadaAutomatizada(ultimaCor) {
 
 		ganhouCorAut++
 
-		console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut)
+		console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut, time)
+		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -215,8 +218,9 @@ function jogadaAutomatizada(ultimaCor) {
 
 		perdeuAut++
 
-		console.log("EST1: PERDEU!")
+		console.log("EST1: PERDEU!", time)
 		console.log("EST1: FIM DO JOGO! " + perdeuAut + " Rodada " + rodadaAut)
+		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -230,7 +234,7 @@ function jogadaAutomatizada(ultimaCor) {
 	// Jogando...
 	if (jogandoAut) {
 
-		if (rodadaAut == 1) console.log("EST1: COMEÇANDO JOGO...")
+		if (rodadaAut == 1) console.log("EST1: COMEÇANDO O JOGO...", time)
 
 		/***************/
 
@@ -268,13 +272,13 @@ function jogadaAutomatizada(ultimaCor) {
 }// jogadaAutomatizada
 
 // EST2: 
-function jogar(ultimaCor) {
+function jogar(ultimaCor, time) {
 
 	rodada += 1
 
 	/***************/
 
-	if (rodada == 1) console.log("EST2: COMEÇANDO JOGO...")
+	if (rodada == 1) console.log("EST2: COMEÇANDO/CONTINUANDO O JOGO...")
 
 	/***************/
 
@@ -282,22 +286,22 @@ function jogar(ultimaCor) {
 	if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2) && rodada <= 4) {
 
 		ganhouCor++
-		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
+		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada, time)
 
-		rodada    = 0
-		cVermelho = 0
-		cPreto    = 0
+		// rodada    = 0
+		// cVermelho = 0
+		// cPreto    = 0
 
 	}// if (ultimaCor == "red" && cVermelho > 1 && cVermelho <= 2 && rodada <= 4)
 
 	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2) && rodada <= 4) {
 
 		ganhouCor++
-		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada)
+		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " Rodada " + rodada, time)
 
-		rodada    = 0
-		cVermelho = 0
-		cPreto    = 0
+		// rodada    = 0
+		// cVermelho = 0
+		// cPreto    = 0
 
 	}// if (ultimaCor == "black" && cPreto > 1 && cPreto <= 2 && rodada <= 4)
 
@@ -306,11 +310,11 @@ function jogar(ultimaCor) {
 	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 
 		ganhouBco++
-		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " Rodada " + rodada)
+		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " Rodada " + rodada, time)
 
-		rodada    = 0
-		cVermelho = 0
-		cPreto    = 0
+		// rodada    = 0
+		// cVermelho = 0
+		// cPreto    = 0
 
 	} else {
 
@@ -318,11 +322,6 @@ function jogar(ultimaCor) {
 
 		// ENTRADAS NO VERMELHO
 		if (cVermelho <= 2) {
-	
-			if (ultimaCor == "red" && cVermelho > 1) {
-				ganhouCor++
-				console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " Rodada " + rodada)
-			}// (ultimaCor == "red" && cVermelho > 1)
 	
 			console.log("EST2: ENTRA NO VERMELHO " + cVermelho + " Rodada " + rodada)
 		
@@ -351,7 +350,7 @@ function jogar(ultimaCor) {
 
 }// jogar
 
-function analisarJogos(ultimaCor) {
+function analisarJogos(ultimaCor, time) {
 
 	try {
 
@@ -368,8 +367,8 @@ function analisarJogos(ultimaCor) {
 			console.log("Saiu vermelho")
 
 			// Continuar jogando
-			if (jogando) jogar(ultimaCor)
-			if (jogandoAut) jogadaAutomatizada(ultimaCor)
+			if (jogando) jogar(ultimaCor, time)
+			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
 
 		// } else if (ultimoSinal.firstChild.classList[1] == "black") {
 	    } else if (ultimaCor == "black") {
@@ -377,8 +376,8 @@ function analisarJogos(ultimaCor) {
 			console.log("Saiu preto")
 
 			// Continuar jogando
-			if (jogando) jogar(ultimaCor)
-			if (jogandoAut) jogadaAutomatizada(ultimaCor)
+			if (jogando) jogar(ultimaCor, time)
+			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
 
 		// } else if (ultimoSinal.firstChild.classList[1] == "white") {
 		} else if (ultimaCor == "white") {
@@ -396,8 +395,8 @@ function analisarJogos(ultimaCor) {
 			cAutPreto    = 0
 			rodadaAut    = 0
 
-			jogar(ultimaCor)
-			jogadaAutomatizada(ultimaCor)
+			jogar(ultimaCor, time)
+			jogadaAutomatizada(ultimaCor, time)
 
 		}// else if (ultimaCor == "white")
 		

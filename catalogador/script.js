@@ -1,6 +1,7 @@
-// VERIFICA URL DOUBLE OU CRASH
-
-var pathname = $(location).attr('pathname');
+var idbot 		   = '5478878277:AAH_FjRfcOc8x1e4uwRoivWG1qDzSAGD-X4'
+var idSalaInfinita = '-1001507376152'
+var idSalaOfc 	   = '-1001643479428'
+var pathname  	   = $(location).attr('pathname');
 
 // AUMENTA E DIMINUI BOX VELAS
 
@@ -168,18 +169,25 @@ let ganhouCor    = 0
 let ganhouBco    = 0
 let perdeu       = 0
 
+// EST1: ACERTIVO
 function jogadaAutomatizada(ultimaCor, time) {
 
 	rodadaAut++
+	rodadaWinAut++
 
 	/***************/
 
-	// Analisa se ganhou na última jogada
+	// ANALISA SE O BRANCO FOI SORTEADO EM SEGUIDA
 	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 
 		ganhouBcoAut++
 			
 		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=⚪️⚪️⚪️ WINZADA DE CARA NO BRANCO 🤑🤑 ⚪️⚪️⚪️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
+		});
+
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -189,11 +197,25 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 	}// if (ultimaCor == "white")
 
+	/***************/
+
+	// ANALISA SE GANHOU NO VERMELHO
 	if (ultimaCor == "red" && (cAutVermelho == 1 || cAutVermelho == 2) && rodadaAut <= 4) {
 
 		ganhouCorAut++
 
 		console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
+
+		if (rodadaAut == 2) {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
+			});
+		} else {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + rodadaAut - 1 + " 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
+			});
+		}
+		
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -203,11 +225,24 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 	}// if (ultimaCor == "red" && cAutVermelho > 1 && cAutVermelho <= 2 && rodadaAut <= 4)
 
+	/***************/
+
+	// ANALISA SE GANHOU NO PRETO
 	if (ultimaCor == "black" && (cAutPreto == 1 || cAutPreto == 2) && rodadaAut <= 4) {
 
 		ganhouCorAut++
 
 		console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
+
+		if (rodadaAut == 2) {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
+			});
+		} else {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+ ⚫️ PAGOU NO GALE " + rodadaAut - 1 + " ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
+			});
+		}
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -217,11 +252,28 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 	}// if (ultimaCor == "black" && cAutPreto > 1 && cAutPreto <= 2 && rodadaAut <= 4)
 
+	/***************/
+
+	// FINALIZA JOGADAS
+	if (cAutPreto == 2) {
+
+		cAutVermelho = 0
+		cAutPreto    = 0
+		jogandoAut   = false
+
+	}// if (cAutPreto == 2)
+
+	/***************/
+
+	// SE ESTIVER NA QUINTA RODADA, PERDEU E PARA O ROBÔ
 	if (rodadaAut > 4) {
 
 		perdeuAut++
 
 		console.log("EST1: PERDEU!", time)
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=❌❌❌ LOSS ❌❌❌",
+		});
 		console.log("EST1: FIM DO JOGO! " + perdeuAut + ", Rodada " + rodadaAut)
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
@@ -247,6 +299,9 @@ function jogadaAutomatizada(ultimaCor, time) {
 		if (cAutVermelho <= 2) {
 
 			console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho + ", Rodada " + rodadaAut)
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+🔴 ENTRAR NO VERMELHO 🔴+%0A+OBEDEÇA O GERENCIAMENTO",
+			});
 			
 		}// if (cAutVermelho <= 2)
 
@@ -258,15 +313,9 @@ function jogadaAutomatizada(ultimaCor, time) {
 			cAutPreto += 1
 
 			console.log("EST1: ENTRA NO PRETO " + cAutPreto + ", Rodada " + rodadaAut)
-
-			// FINALIZA JOGADAS
-			if (cAutPreto == 2) {
-
-				cAutVermelho = 0
-				cAutPreto    = 0
-				jogandoAut   = false
-
-			}// if (cAutPreto == 2)
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+⚫️ ENTRAR NO PRETO ⚫️+%0A+OBEDEÇA O GERENCIAMENTO",
+			});
 
 		}// if (cAutVermelho > 2)
 
@@ -274,7 +323,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 }// jogadaAutomatizada
 
-// EST2: 
+// EST2: INFINITO
 function jogar(ultimaCor, time) {
 
 	rodada++
@@ -291,6 +340,17 @@ function jogar(ultimaCor, time) {
 
 		ganhouCor++
 		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " vezes, Rodada " + rodada, time)
+
+		if (rodadaWin == 2) {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
+			});
+		} else {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + rodada -1 + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
+			});
+		}
+
 		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
 		rodadaWin = 0
@@ -298,12 +358,23 @@ function jogar(ultimaCor, time) {
 		// cVermelho = 0
 		// cPreto    = 0
 
-	}// if (ultimaCor == "red" && cVermelho > 1 && cVermelho <= 2)
+	}// if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2))
 
 	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2)) {
 
 		ganhouCor++
 		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " vezes, Rodada " + rodada, time)
+
+		if (rodadaWin == 2) {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
+			});
+		} else {
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + rodada -1 + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
+			});
+		}
+
 		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
 		rodadaWin = 0
@@ -315,10 +386,28 @@ function jogar(ultimaCor, time) {
 
 	/***************/
 
+	// RECOMEÇA ANÁLISE
+	if (cPreto == 2) {
+
+		rodada    = 0
+		cVermelho = 0
+		cPreto    = 0
+
+	}// if (cPreto == 2)
+
+	/***************/
+
+	// IDENTIFICA SE O BRANCO FOI SORTEADO EM SEGUIDA
 	if (ultimaCor == "white" && boxCatalogador.lastChild.previousElementSibling.firstChild.classList[1] == "white") {
 
 		ganhouBco++
+
 		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " vezes, Rodada " + rodada, time)
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=⚪️⚪️⚪️ WINZADA DE CARA NO BRANCO 🤑🤑 ⚪️⚪️⚪️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
+		});
+
 		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
 		rodadaWin = 0
@@ -334,25 +423,25 @@ function jogar(ultimaCor, time) {
 		if (cVermelho <= 2) {
 	
 			console.log("EST2: ENTRA NO VERMELHO " + cVermelho + ", Rodada " + rodada)
+
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅ SINAL CONFIRMADO ✅+%0A+🔴 ENTRAR NO VERMELHO 🔴+%0A+OBEDEÇA O GERENCIAMENTO",
+			});
 		
 		}// if (cVermelho <= 2)
 	
 		/***************/
 	
+		// ENTRADAS NO PRETO
 		if (cVermelho > 2) {
 	
 			cPreto += 1
 	
 			console.log("EST2: ENTRA NO PRETO " + cPreto + ", Rodada " + rodada)
-	
-			// RECOMEÇA ANÁLISE
-			if (cPreto == 2) {
-	
-				rodada    = 0
-				cVermelho = 0
-				cPreto    = 0
-	
-			}// if (cPreto == 2)
+
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅ SINAL CONFIRMADO ✅+%0A+⚫️ ENTRAR NO PRETO ⚫️+%0A+OBEDEÇA O GERENCIAMENTO",
+			});
 	
 		}// if (cVermelho > 2)
 
@@ -378,7 +467,7 @@ function analisarJogos(ultimaCor, time) {
 
 			// Continuar jogando
 			if (jogando) jogar(ultimaCor, time)
-			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
+			// if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
 
 		// } else if (ultimoSinal.firstChild.classList[1] == "black") {
 	    } else if (ultimaCor == "black") {
@@ -387,7 +476,7 @@ function analisarJogos(ultimaCor, time) {
 
 			// Continuar jogando
 			if (jogando) jogar(ultimaCor, time)
-			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
+			// if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
 
 		// } else if (ultimoSinal.firstChild.classList[1] == "white") {
 		} else if (ultimaCor == "white") {
@@ -406,7 +495,7 @@ function analisarJogos(ultimaCor, time) {
 			rodadaAut    = 0
 
 			jogar(ultimaCor, time)
-			jogadaAutomatizada(ultimaCor, time)
+			// jogadaAutomatizada(ultimaCor, time)
 
 		}// else if (ultimaCor == "white")
 		

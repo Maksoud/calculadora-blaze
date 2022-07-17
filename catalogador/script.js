@@ -211,7 +211,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 			});
 		} else {
 			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + rodadaAut - 1 + " 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodadaAut-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
 			});
 		}
 		
@@ -239,7 +239,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 			});
 		} else {
 			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+ ⚫️ PAGOU NO GALE " + rodadaAut - 1 + " ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+ ⚫️ PAGOU NO GALE " + (rodadaAut-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
 			});
 		}
 		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
@@ -342,15 +342,11 @@ function jogar(ultimaCor, time) {
 		ganhouCor++
 		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " vezes, Rodada " + rodada, time)
 
-		if (rodadaWin == 2) {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
-			});
-		} else {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + rodada -1 + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
-			});
-		}
+		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodada-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+		})
 
 		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
@@ -366,15 +362,11 @@ function jogar(ultimaCor, time) {
 		ganhouCor++
 		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " vezes, Rodada " + rodada, time)
 
-		if (rodadaWin == 2) {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
-			});
-		} else {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + rodada -1 + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
-			});
-		}
+		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + (rodada-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+		})
 
 		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
@@ -472,7 +464,7 @@ function analisarJogos(ultimaCor, time) {
 
 			// Continuar jogando
 			if (jogando) jogar(ultimaCor, time)
-			// if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
+			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
 
 		// } else if (ultimoSinal.firstChild.classList[1] == "black") {
 	    } else if (ultimaCor == "black") {
@@ -481,7 +473,7 @@ function analisarJogos(ultimaCor, time) {
 
 			// Continuar jogando
 			if (jogando) jogar(ultimaCor, time)
-			// if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
+			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
 
 		// } else if (ultimoSinal.firstChild.classList[1] == "white") {
 		} else if (ultimaCor == "white") {
@@ -500,7 +492,7 @@ function analisarJogos(ultimaCor, time) {
 			rodadaAut    = 0
 
 			jogar(ultimaCor, time)
-			// jogadaAutomatizada(ultimaCor, time)
+			jogadaAutomatizada(ultimaCor, time)
 
 		}// else if (ultimaCor == "white")
 		

@@ -205,15 +205,11 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		// console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 
-		if (rodadaAut == 2) {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
-			});
-		} else {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodadaAut-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
-			});
-		}
+		let msg = (rodadaAut < 2) ? "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodadaAut-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀"
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=" + msg
+		})
 		
 		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
@@ -233,15 +229,12 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		// console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 
-		if (rodadaAut == 2) {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
-			});
-		} else {
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+ ⚫️ PAGOU NO GALE " + (rodadaAut-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
-			});
-		}
+		let msg = (rodadaAut < 2) ? "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+ ⚫️ PAGOU NO GALE " + (rodadaAut-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀"
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=" + msg
+		})
+
 		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
@@ -271,8 +264,8 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		// console.log("EST1: PERDEU!", time)
 		$.ajax({
-			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=❌❌❌ LOSS ❌❌❌",
-		});
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=❌❌❌ LOSS ❌❌❌"
+		})
 		// console.log("EST1: FIM DO JOGO! " + perdeuAut + ", Rodada " + rodadaAut)
 		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
@@ -303,7 +296,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 			$.ajax({
 				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+🔴 ENTRAR NO VERMELHO 🔴+%0A+" + msg
-			});
+			})
 			
 		}// if (cAutVermelho <= 2)
 
@@ -320,7 +313,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 			$.ajax({
 				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅ SINAL CONFIRMADO ✅+%0A+⚫️ ENTRAR NO PRETO ⚫️+%0A+" + msg
-			});
+			})
 
 		}// if (cAutVermelho > 2)
 
@@ -342,7 +335,7 @@ function jogar(ultimaCor, time) {
 		ganhouCor++
 		// console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " vezes, Rodada " + rodada, time)
 
-		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodadaWin-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+		let msg = (rodadaWin < 2) ? "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodadaWin-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
 
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
@@ -357,12 +350,30 @@ function jogar(ultimaCor, time) {
 
 	}// if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2))
 
+	/***************/
+
+	if (ultimaCor == "white" && rodadaWin > 1) {
+		
+		ganhouCor++
+		ganhouBco++
+
+		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+⚪️ O BRANCO PAGOU ⚪️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+⚪️ PAGOU NO GALE " + (rodadaWin-1) + " ⚪️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+
+		$.ajax({
+			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+		})
+
+		rodadaWin = 0
+		rodada    = 0
+
+	}
+
 	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2)) {
 
 		ganhouCor++
 		// console.log("EST2: GANHOU NO PRETO " + ganhouCor + " vezes, Rodada " + rodada, time)
 
-		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + (rodadaWin-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+		let msg = (rodadaWin < 2) ? "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + (rodadaWin-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
 
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg

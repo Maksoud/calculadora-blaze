@@ -142,7 +142,7 @@ if (pathname == "/pt/games/double") {
 
 		$(".btnIniciar").fadeOut(0);
 		$(".btnResetar").fadeIn(0);
-		console.log("Iniciou");
+		// console.log("Iniciou");
 
 	}// iniciar
 
@@ -181,13 +181,13 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		ganhouBcoAut++
 			
-		console.log("EST1: MISERAVI ACERTÔ NO BRANCO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
+		// console.log("EST1: MISERAVI ACERTÔ NO BRANCO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=⚪️⚪️⚪️ WINZADA DE CARA NO BRANCO 🤑🤑 ⚪️⚪️⚪️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
 		});
 
-		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
+		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -203,7 +203,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		ganhouCorAut++
 
-		console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
+		// console.log("EST1: GANHOU NO VERMELHO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 
 		if (rodadaAut == 2) {
 			$.ajax({
@@ -215,7 +215,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 			});
 		}
 		
-		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
+		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -231,7 +231,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		ganhouCorAut++
 
-		console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
+		// console.log("EST1: GANHOU NO PRETO! " + ganhouCorAut + ", Rodada " + rodadaAut, time)
 
 		if (rodadaAut == 2) {
 			$.ajax({
@@ -242,7 +242,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=✅✅ WINNNN ✅✅+%0A+ ⚫️ PAGOU NO GALE " + (rodadaAut-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCorAut + " X " + perdeuAut + " 🚀🚀",
 			});
 		}
-		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
+		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -269,12 +269,12 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 		perdeuAut++
 
-		console.log("EST1: PERDEU!", time)
+		// console.log("EST1: PERDEU!", time)
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaOfc + "&text=❌❌❌ LOSS ❌❌❌",
 		});
-		console.log("EST1: FIM DO JOGO! " + perdeuAut + ", Rodada " + rodadaAut)
-		console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
+		// console.log("EST1: FIM DO JOGO! " + perdeuAut + ", Rodada " + rodadaAut)
+		// console.log("EST1: AGUARDANDO NOVO BRANCO PARA RECOMEÇAR!")
 
 		rodadaAut    = 0
 		cAutVermelho = 0
@@ -288,7 +288,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 	// Jogando...
 	if (jogandoAut) {
 
-		if (rodadaAut == 1) console.log("EST1: COMEÇANDO O JOGO...", time)
+		// if (rodadaAut == 1) console.log("EST1: COMEÇANDO O JOGO...", time)
 
 		/***************/
 
@@ -297,7 +297,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 		// ENTRADAS NO VERMELHO
 		if (cAutVermelho <= 2) {
 
-			console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho + ", Rodada " + rodadaAut)
+			// console.log("EST1: ENTRA NO VERMELHO " + cAutVermelho + ", Rodada " + rodadaAut)
 
 			let msg = rodadaAut > 1 ? "ENTRA NO GALE " + (rodadaAut-1) : "OBEDEÇA O GERENCIAMENTO"
 
@@ -314,7 +314,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 
 			cAutPreto += 1
 
-			console.log("EST1: ENTRA NO PRETO " + cAutPreto + ", Rodada " + rodadaAut)
+			// console.log("EST1: ENTRA NO PRETO " + cAutPreto + ", Rodada " + rodadaAut)
 
 			let msg = rodadaAut > 1 ? "ENTRA NO GALE " + (rodadaAut-1) : "OBEDEÇA O GERENCIAMENTO"
 
@@ -340,15 +340,15 @@ function jogar(ultimaCor, time) {
 	if (ultimaCor == "red" && (cVermelho == 1 || cVermelho == 2)) {
 
 		ganhouCor++
-		console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " vezes, Rodada " + rodada, time)
+		// console.log("EST2: GANHOU NO VERMELHO " + ganhouCor + " vezes, Rodada " + rodada, time)
 
-		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodada-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU DE PRIMEIRA 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO GALE " + (rodadaWin-1) + " 🔴+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
 
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 		})
 
-		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
+		// console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
 		rodadaWin = 0
 		// rodada    = 0
@@ -360,15 +360,15 @@ function jogar(ultimaCor, time) {
 	if (ultimaCor == "black" && (cPreto == 1 || cPreto == 2)) {
 
 		ganhouCor++
-		console.log("EST2: GANHOU NO PRETO " + ganhouCor + " vezes, Rodada " + rodada, time)
+		// console.log("EST2: GANHOU NO PRETO " + ganhouCor + " vezes, Rodada " + rodada, time)
 
-		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + (rodada-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
+		let msg = (rodadaWin == 2) ? "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU DE PRIMEIRA ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀" : "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO GALE " + (rodadaWin-1) + " ⚫️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀"
 
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 		})
 
-		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
+		// console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
 		rodadaWin = 0
 		// rodada    = 0
@@ -395,13 +395,13 @@ function jogar(ultimaCor, time) {
 
 		ganhouBco++
 
-		console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " vezes, Rodada " + rodada, time)
+		// console.log("EST2: MISERAVI ACERTÔ NO BRANCO! " + ganhouBco + " vezes, Rodada " + rodada, time)
 
 		$.ajax({
 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=⚪️⚪️⚪️ WINZADA DE CARA NO BRANCO 🤑🤑 ⚪️⚪️⚪️+%0A+PLACAR ATUAL " + ganhouCor + " X " + perdeu + " 🚀🚀",
 		});
 
-		console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
+		// console.log("EST2: VITÓRIA NA RODADA " + rodadaWin)
 
 		rodadaWin = 0
 		rodada    = 0
@@ -415,7 +415,7 @@ function jogar(ultimaCor, time) {
 		// ENTRADAS NO VERMELHO
 		if (cVermelho <= 2) {
 	
-			console.log("EST2: ENTRA NO VERMELHO " + cVermelho + ", Rodada " + rodada)
+			// console.log("EST2: ENTRA NO VERMELHO " + cVermelho + ", Rodada " + rodada)
 
 			let msg = rodadaWin > 1 ? "ENTRA NO GALE " + (rodadaWin-1) : "OBEDEÇA O GERENCIAMENTO"
 
@@ -432,7 +432,7 @@ function jogar(ultimaCor, time) {
 	
 			cPreto += 1
 	
-			console.log("EST2: ENTRA NO PRETO " + cPreto + ", Rodada " + rodada)
+			// console.log("EST2: ENTRA NO PRETO " + cPreto + ", Rodada " + rodada)
 
 			let msg = rodadaWin > 1 ? "ENTRA NO GALE " + (rodadaWin-1) : "OBEDEÇA O GERENCIAMENTO"
 
@@ -460,7 +460,7 @@ function analisarJogos(ultimaCor, time) {
 		// if (ultimoSinal.firstChild.classList[1] == "red") {
 		if (ultimaCor == "red") {
 
-			console.log("Saiu vermelho")
+			// console.log("Saiu vermelho")
 
 			// Continuar jogando
 			if (jogando) jogar(ultimaCor, time)
@@ -469,7 +469,7 @@ function analisarJogos(ultimaCor, time) {
 		// } else if (ultimoSinal.firstChild.classList[1] == "black") {
 	    } else if (ultimaCor == "black") {
 
-			console.log("Saiu preto")
+			// console.log("Saiu preto")
 
 			// Continuar jogando
 			if (jogando) jogar(ultimaCor, time)
@@ -479,7 +479,7 @@ function analisarJogos(ultimaCor, time) {
 		} else if (ultimaCor == "white") {
 
 			// Começar a jogar
-			console.log("Saiu branco")
+			// console.log("Saiu branco")
 
 			jogando   = true
 			cVermelho = 0

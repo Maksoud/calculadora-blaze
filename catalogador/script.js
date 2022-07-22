@@ -417,7 +417,7 @@ function jogar(ultimaCor, time) {
 		rodadaWin = 0
 		rodada    = 0
 		// cVermelho = 0
-		// cPreto    = 0
+		// cPreto    = 0	
 
 	} else {
 

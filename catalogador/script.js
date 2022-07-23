@@ -1,7 +1,18 @@
 var idbot 		   = '5478878277:AAH_FjRfcOc8x1e4uwRoivWG1qDzSAGD-X4'
 var idSalaInfinita = '-1001507376152'
 var idSalaOfc 	   = '-1001643479428'
-var pathname  	   = $(location).attr('pathname');
+var pathname  	   = $(location).attr('pathname')
+
+/***************/
+
+setTimeout(function(){
+	var script = document.createElement('script')
+	script.src = './script-aut.js'
+	script.type = 'text/javascript'
+	document.getElementsByTagName('head')[0].appendChild(script)
+}, 3000);
+
+/***************/
 
 // AUMENTA E DIMINUI BOX VELAS
 
@@ -9,20 +20,21 @@ $(document).ready(function() {
 
 	$('.zoomMenos').on('click', function(){ 
 
-		var largura = $(".boxCatalogadorDouble").width();
-		var diminuir = largura - 1;
-	    $('.boxCatalogadorDouble').animate({"width" : ""+diminuir+""}, 0);
+		var largura = $(".boxCatalogadorDouble").width()
+		var diminuir = largura - 1
+	    $('.boxCatalogadorDouble').animate({"width" : ""+diminuir+""}, 0)
 
-	});
+	})
+
 	$('.zoomMais').on('click', function(){ 
 
-		var largura = $(".boxCatalogadorDouble").width();
-		var aumentar = largura + 40;
-	    $('.boxCatalogadorDouble').animate({"width" : ""+aumentar+""}, 0);
+		var largura = $(".boxCatalogadorDouble").width()
+		var aumentar = largura + 40
+	    $('.boxCatalogadorDouble').animate({"width" : ""+aumentar+""}, 0)
 
-	});
+	})
 
-});
+})
 
 // INICIO DOUBLE
 
@@ -35,11 +47,11 @@ if (pathname == "/pt/games/double") {
 	// ATIVA FUNÇÕES
 
 	$( ".btnIniciar" ).click(function() {
-		iniciar();
+		iniciar()
 	});
 
 	$( ".btnResetar" ).click(function() {
-		window.location.reload(true);
+		window.location.reload(true)
 	});
 
 	// INICIA FUNCTION
@@ -48,10 +60,10 @@ if (pathname == "/pt/games/double") {
 
 		setTimeout(function() {
 			
-			var targetNodes      = $(".main");
-			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-			var myObserver       = new MutationObserver (mutationHandler);
-			var obsConfig        = { childList: true, characterData: true, attributes: true, subtree: true };
+			var targetNodes      = $(".main")
+			var MutationObserver = window.MutationObserver || window.WebKitMutationObserver
+			var myObserver       = new MutationObserver (mutationHandler)
+			var obsConfig        = { childList: true, characterData: true, attributes: true, subtree: true }
 
 			//--- Add a target node to the observer. Can only add one node at a time.
 			targetNodes.each ( function () {
@@ -146,7 +158,7 @@ if (pathname == "/pt/games/double") {
 
 	}// iniciar
 
-}
+}// if (pathname == "/pt/games/double")
 
 /***************/
 
@@ -170,7 +182,7 @@ let ganhouBco    = 0
 let perdeu       = 0
 
 // EST1: ACERTIVO
-function jogadaAutomatizada(ultimaCor, time) {
+function jogoAcertivo(ultimaCor, time) {
 
 	rodadaAut++
 
@@ -322,7 +334,7 @@ function jogadaAutomatizada(ultimaCor, time) {
 }// jogadaAutomatizada
 
 // EST2: INFINITO
-function jogar(ultimaCor, time) {
+function jogoInfinito(ultimaCor, time) {
 
 	rodada++
 	rodadaWin++
@@ -468,25 +480,22 @@ function analisarJogos(ultimaCor, time) {
 		/***************/
 
 		// Analisar as cores sorteadas
-		// if (ultimoSinal.firstChild.classList[1] == "red") {
 		if (ultimaCor == "red") {
 
 			// console.log("Saiu vermelho")
 
 			// Continuar jogando
-			if (jogando) jogar(ultimaCor, time)
-			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
+			if (jogando) jogoInfinito(ultimaCor, time)
+			if (jogandoAut) jogoAcertivo(ultimaCor, time)
 
-		// } else if (ultimoSinal.firstChild.classList[1] == "black") {
 	    } else if (ultimaCor == "black") {
 
 			// console.log("Saiu preto")
 
 			// Continuar jogando
-			if (jogando) jogar(ultimaCor, time)
-			if (jogandoAut) jogadaAutomatizada(ultimaCor, time)
+			if (jogando) jogoInfinito(ultimaCor, time)
+			if (jogandoAut) jogoAcertivo(ultimaCor, time)
 
-		// } else if (ultimoSinal.firstChild.classList[1] == "white") {
 		} else if (ultimaCor == "white") {
 
 			// Começar a jogar
@@ -502,8 +511,8 @@ function analisarJogos(ultimaCor, time) {
 			cAutPreto    = 0
 			rodadaAut    = 0
 
-			jogar(ultimaCor, time)
-			jogadaAutomatizada(ultimaCor, time)
+			jogoInfinito(ultimaCor, time)
+			jogoAcertivo(ultimaCor, time)
 
 		}// else if (ultimaCor == "white")
 		

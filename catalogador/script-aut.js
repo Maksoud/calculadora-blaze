@@ -3,6 +3,8 @@ script.src = 'https://code.jquery.com/jquery-3.4.1.min.js'
 script.type = 'text/javascript'
 document.getElementsByTagName('head')[0].appendChild(script)
 
+/***************/
+
 let minimoTotal = 0
 let tempoMinimo = 1
 let tempoMax    = 3
@@ -162,41 +164,41 @@ setInterval(function () {
 
             /***************/
 
-            if ((pretoWin == true || brancoWin == true) && rodadaVermelho - 1 <= martinGale) {
+            // if ((pretoWin == true || brancoWin == true) && rodadaVermelho - 1 <= martinGale) {
 
-                rodadaVermelho++
+            //     rodadaVermelho++
 
-                if (validaEntrada == 1) {
+            //     if (validaEntrada == 1) {
 
-                    clicar(dobrarEntrada)
+            //         clicar(dobrarEntrada)
 
-                }
+            //     }
 
-                validaEntrada = 0
+            //     validaEntrada = 0
 
-            } else if (rodadaVermelho - 1 == 0) {
+            // } else if (rodadaVermelho - 1 == 0) {
 
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            } else if(rodadaVermelho - 1 == 1) {
+            // } else if(rodadaVermelho - 1 == 1) {
 
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            } else if(rodadaVermelho - 1 == 2) {
+            // } else if(rodadaVermelho - 1 == 2) {
 
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            } else if(rodadaVermelho - 1 == 3) {
+            // } else if(rodadaVermelho - 1 == 3) {
 
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            }
+            // }
 
             validaEntrada = 0
 
@@ -233,40 +235,40 @@ setInterval(function () {
 
             /***************/
 
-            if ((pretoWin == true || brancoWin == true) && rodadaVermelho - 1 <= martinGale) {
+            // if ((pretoWin == true || brancoWin == true) && rodadaVermelho - 1 <= martinGale) {
 
-                rodadaVermelho++
+            //     rodadaVermelho++
 
-                if (validaEntrada == 1) {
+            //     if (validaEntrada == 1) {
 
-                    clicar(dobrarEntrada)
+            //         clicar(dobrarEntrada)
 
-                }
+            //     }
 
-                validaEntrada = 0
-            } else if (rodadaVermelho - 1 == 0) {
+            //     validaEntrada = 0
+            // } else if (rodadaVermelho - 1 == 0) {
 
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            } else if(rodadaVermelho - 1 == 1) {
+            // } else if(rodadaVermelho - 1 == 1) {
 
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            } else if(rodadaVermelho - 1 == 2) {
+            // } else if(rodadaVermelho - 1 == 2) {
 
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            } else if(rodadaVermelho - 1 == 3) {
+            // } else if(rodadaVermelho - 1 == 3) {
 
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
-                clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
+            //     clicar(dividirEntrada)
 
-            }
+            // }
 
             validaEntrada = 0
 

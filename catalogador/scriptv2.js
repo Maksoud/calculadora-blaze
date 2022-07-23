@@ -15,27 +15,20 @@ if (pathname == "/pt/games/double") {
 	/*******/
 
     // Variáveis das posições dos elementos na tela
-    var comecarJogo    = $(".place-bet .undefined")
-    var dobrarEntrada  = $(".double")
-    var dividirEntrada = $(".half")
 	let vermelhoWin    = false
 	let vermelhoEnt    = false
     let pretoWin       = false
 	let pretoEnt	   = false
-	let branco 		   = $(".input-wrapper .white")
-    var brancoWin      = ""
+    // let comecarJogo    = $(".place-bet .undefined")
+    // let dobrarEntrada  = $(".double")
+    // let dividirEntrada = $(".half")
+	// let branco 		   = $(".input-wrapper .white")
+    // let brancoWin      = ""
 
 	/*******/
 
-    // Contador de wins
-    let win  = 0
-
-    // Contador de loss
-    let loss = 0
-
-    // Limite de martingales do robô
-    let martinGale = 2
-
+    let win  		 = 0
+    let loss 		 = 0
 	let bancaInicial = 0
 	let bancaAtual   = 0
 	let stopWin      = 0
@@ -43,7 +36,7 @@ if (pathname == "/pt/games/double") {
 
 	/*******/
 
-	function ligaRobo(obj) {
+	function ligaRobo() {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
 
@@ -51,7 +44,7 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 1
 
-            $(obj).html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
+            $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
 
 			let msg = "✅✅ ATIVADO ✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
@@ -62,7 +55,7 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 0
 
-            $(obj).html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
+            $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
 
 			let msg = "❌❌ DESATIVADO ❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
@@ -77,7 +70,9 @@ if (pathname == "/pt/games/double") {
 
 	/*******/
 
-	$(".config-robo").click(() => ligaRobo(this))
+	$(".config-robo").click(() => {
+		ligaRobo()
+	})
 
 	/*******/
 

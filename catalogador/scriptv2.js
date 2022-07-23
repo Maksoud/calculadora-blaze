@@ -117,8 +117,16 @@ if (pathname == "/pt/games/double") {
 
 				/*******/
 
+				let redWin = false
+				let blackWin = false
+				let whiteWin = false
+
+				if ($(".casino-recent .entry:first").html().match(/black/g)) blackWin = true
+				if ($(".casino-recent .entry:first").html().match(/red/g))   redWin   = true
+				if ($(".casino-recent .entry:first").html().match(/white/g)) whiteWin = true
+
 				// Contabiliza ganhos
-				if (vermelhoEnt == true && vermelhoWin == true) {
+				if (vermelhoEnt == true && redWin == true) {
 					win++
 					setTimeout(() => {
 						let msg = "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -127,7 +135,7 @@ if (pathname == "/pt/games/double") {
 						})
 					}, 15000)
 				}
-				if (vermelhoEnt == true && vermelhoWin == false) {
+				if (vermelhoEnt == true && redWin == false) {
 					loss++
 					setTimeout(() => {
 						let msg = "❌❌❌ LOSS ❌❌❌+%0A+🔴 PERDEU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -136,7 +144,7 @@ if (pathname == "/pt/games/double") {
 						})
 					}, 15000)
 				}
-				if (pretoEnt == true && pretoWin == true) {
+				if (pretoEnt == true && blackWin == true) {
 					win++
 					setTimeout(() => {
 						let msg = "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -145,7 +153,7 @@ if (pathname == "/pt/games/double") {
 						})
 					}, 15000)
 				}
-				if (pretoEnt == true && pretoWin == false) {
+				if (pretoEnt == true && blackWin == false) {
 					loss++
 					setTimeout(() => {
 						let msg = "❌❌❌ LOSS ❌❌❌+%0A+⚫️ PERDEU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -156,6 +164,12 @@ if (pathname == "/pt/games/double") {
 				}
 
 				// if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)
+
+				if (vermelhoEnt == false && pretoEnt == false) {
+					console.log("valorVermelho:", valorVermelho, "valorPreto:", valorPreto)
+					if (valorVermelho > valorPreto) console.log("Vermelho " + (valorVermelho/valorPreto).toFixed(2) + "x maior")
+					if (valorPreto > valorVermelho) console.log("Preto " + (valorPreto/valorVermelho).toFixed(2) + "x maior")
+				}
 
 				/*******/
 
@@ -320,6 +334,11 @@ if (pathname == "/pt/games/double") {
 
 				vermelhoEnt = true
 				console.log("Entrou no vermelho")
+
+				let msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀"
+				$.ajax({
+					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+				})
         
             }
 
@@ -333,6 +352,11 @@ if (pathname == "/pt/games/double") {
 
 				pretoEnt = true
 				console.log("Entrou no preto")
+
+				let msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀"
+				$.ajax({
+					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+				})
 
             }
 

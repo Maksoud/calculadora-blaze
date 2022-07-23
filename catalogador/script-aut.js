@@ -54,7 +54,7 @@ $(document).ready(function() {
     /***************/
 
     // Configuração das ações do robô
-    function clicar(lugarClique){
+    function clicar(lugarClique) {
 
         if (lugarClique.click) {
             
@@ -66,9 +66,9 @@ $(document).ready(function() {
             eventObj.initEvent('click',true,true)
             lugarClique.dispatchEvent(eventObj)
             
-        }// else if(document.createEvent){
+        }// else if (document.createEvent) {
 
-    }// function clicar(lugarClique){
+    }// function clicar(lugarClique) {
 
     /***************/
 
@@ -84,32 +84,36 @@ $(document).ready(function() {
     /***************/
 
     // Variáveis das posições dos elementos na tela
-
-    var comecarJogo     = document.querySelector('.place-bet .undefined')
-    var dobrarEntrada   = document.querySelector('.double')
-    var dividirEntrada  = document.querySelector('.half')
-
-    /***************/
-
-    var vermelho = document.querySelector('.input-wrapper .red')
-    var vermelhoWin = ''
-    var preto    = document.querySelector('.input-wrapper .black')
-    var pretoWin = ''
-    var branco   = document.querySelector('.input-wrapper .white')
-    var brancoWin = ''
+    var comecarJogo    = document.querySelector('.place-bet .undefined')
+    var dobrarEntrada  = document.querySelector('.double')
+    var dividirEntrada = document.querySelector('.half')
+    var vermelho       = document.querySelector('.input-wrapper .red')
+    var vermelhoWin    = ''
+    var preto          = document.querySelector('.input-wrapper .black')
+    var pretoWin       = ''
+    var branco         = document.querySelector('.input-wrapper .white')
+    var brancoWin      = ''
 
     /***************/
 
     // Ao clicar no botão, executa a ação de ligar ou desligar o robô
-    boxBotao.addEventListener("click", function(){
+    boxBotao.addEventListener("click", function() {
+
         if (document.querySelector('.config-robo .red').classList.contains('ligar')) {
+        
             statusRobo = 1
+
             boxBotao.innerHTML = '<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>'
+        
         } else {
+        
             statusRobo = 0
+
             boxBotao.innerHTML = '<div class="config-robo"><button id="header-deposit" class="red ligar"><i class="fas fa-play"></i> LIGAR</button></div>'
-        }
-    })
+        
+        }// else if (document.querySelector('.config-robo .red').classList.contains('ligar'))
+
+    })// boxBotao.addEventListener
 
     /***************/
 
@@ -123,7 +127,7 @@ $(document).ready(function() {
         // Validação se o vermelho ganhou a rodada = true
         vermelhoWin = document.querySelectorAll('.counter')[1].childNodes[0].classList.contains("good")
 
-        /***************/
+        /*******/
 
         // Separa os valores das entradas no branco
         valorBranco = document.querySelectorAll('.counter')[3].innerHTML.split('</span>')[0].split('R$ ')[1]
@@ -131,7 +135,7 @@ $(document).ready(function() {
         // Validação se o branco ganhou a rodada = true
         brancoWin = document.querySelectorAll('.counter')[3].childNodes[0].classList.contains("good")
 
-        /***************/
+        /*******/
 
         // Separa os valores das entradas no preto
         valorPreto = document.querySelectorAll('.counter')[5].innerHTML.split('</span>')[0].split('R$ ')[1]
@@ -139,7 +143,7 @@ $(document).ready(function() {
         // Validação se o preto ganhou a rodada = true
         pretoWin = document.querySelectorAll('.counter')[5].childNodes[0].classList.contains("good")
 
-        /***************/
+        /*******/
 
         // Separa o contador para poder efetuar a entrada
         timeLeft = document.querySelector('.time-left span').innerHTML.split(':')[0]
@@ -151,147 +155,53 @@ $(document).ready(function() {
     setInterval(function () {
         
         // Verifica se o robô está ligado, e se o saldo atual da banca está entre o stopwin e o stoploss
-        if(statusRobo != 0 && (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopWin || document.querySelector('.currency').innerHTML.split('</span>')[1] > stopLoss)){
+        if (statusRobo != 0 && (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopWin || document.querySelector('.currency').innerHTML.split('</span>')[1] > stopLoss)) {
+            
             // Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada
-            if(valorVermelho > (valorPreto * 3) && vermelhoWin == false && valorVermelho >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax){
+            if (valorVermelho > (valorPreto * 3) && vermelhoWin == false && valorVermelho >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
 
-                validaEntrada = 1
-                if(validaEntrada == 1){
+                rodadaVermelho = 1
 
-                    rodadaVermelho = 1
-                    clicar(vermelho)
-                    clicar(comecarJogo)
+                clicar(vermelho)
+                clicar(comecarJogo)
         
-                }
-
-                /***************/
-
-                // if ((pretoWin == true || brancoWin == true) && rodadaVermelho - 1 <= martinGale) {
-
-                //     rodadaVermelho++
-
-                //     if (validaEntrada == 1) {
-
-                //         clicar(dobrarEntrada)
-
-                //     }
-
-                //     validaEntrada = 0
-
-                // } else if (rodadaVermelho - 1 == 0) {
-
-                //     clicar(dividirEntrada)
-
-                // } else if(rodadaVermelho - 1 == 1) {
-
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-
-                // } else if(rodadaVermelho - 1 == 2) {
-
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-
-                // } else if(rodadaVermelho - 1 == 3) {
-
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-
-                // }
-
-                validaEntrada = 0
-
-                /***************/
-
-            } 
-
-            /***************/
-
-            else if (document.querySelector('.currency').innerHTML.split('</span>')[1] > stopWin) {
+            } else if (document.querySelector('.currency').innerHTML.split('</span>')[1] > stopWin) {
 
                 statusRobo = 0
+
                 alert('STOPWIN BATIDO COM SUCESSO!')
 
-            } 
-
-            else if (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopLoss) {
+            } else if (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopLoss) {
 
                 statusRobo = 0
+
                 alert('STOPLOSS ATINGIDO')
 
             }
+
+            /*******/
         
             // Se o valor de apostas do preto for maior que o valor do vermelho vezes 3, ele valida a entrada
             if (valorPreto > (valorVermelho * 3) && pretoWin == false && valorPreto >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
 
-                validaEntrada = 1
-                if (validaEntrada == 1) {
-        
-                    clicar(preto)
-                    clicar(comecarJogo)
-        
-                }
+                clicar(preto)
+                clicar(comecarJogo)
 
-                /***************/
-
-                // if ((pretoWin == true || brancoWin == true) && rodadaVermelho - 1 <= martinGale) {
-
-                //     rodadaVermelho++
-
-                //     if (validaEntrada == 1) {
-
-                //         clicar(dobrarEntrada)
-
-                //     }
-
-                //     validaEntrada = 0
-                // } else if (rodadaVermelho - 1 == 0) {
-
-                //     clicar(dividirEntrada)
-
-                // } else if(rodadaVermelho - 1 == 1) {
-
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-
-                // } else if(rodadaVermelho - 1 == 2) {
-
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-
-                // } else if(rodadaVermelho - 1 == 3) {
-
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-                //     clicar(dividirEntrada)
-
-                // }
-
-                validaEntrada = 0
-
-                /***************/
-
-            }
-
-            else if (document.querySelector('.currency').innerHTML.split('</span>')[1] > stopWin) {
+            } else if (document.querySelector('.currency').innerHTML.split('</span>')[1] > stopWin) {
 
                 statusRobo = 0
+                
                 alert('STOPWIN BATIDO COM SUCESSO!')
 
-            }
-
-            else if (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopLoss) {
+            } else if (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopLoss) {
 
                 statusRobo = 0
+
                 alert('STOPLOSS ATINGIDO')
 
             }
-        }
+
+        }// if (statusRobo != 0 && (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopWin || document.querySelector('.currency').innerHTML.split('</span>')[1] > stopLoss))
 
     }, 3000)
 

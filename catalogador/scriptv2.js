@@ -43,11 +43,7 @@ if (pathname == "/pt/games/double") {
 
 	/*******/
 
-	$("#casino").prepend("<div class='config-robo'><button id='header-deposit' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
-
-	/*******/
-
-	$(".config-robo").click(function() {
+	function ligaRobo(obj) {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
 
@@ -55,7 +51,7 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 1
 
-            $(this).html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
+            $(obj).html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
 
 			let msg = "✅✅ ATIVADO ✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
@@ -66,7 +62,7 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 0
 
-            $(this).html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
+            $(obj).html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
 
 			let msg = "❌❌ DESATIVADO ❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
@@ -75,7 +71,13 @@ if (pathname == "/pt/games/double") {
         
         }// else if (document.querySelector('.config-robo .red').classList.contains('ligar'))
 
-	})// $(".config-robo").click
+	}// ligaRobo
+
+	$("#casino").prepend("<div class='config-robo'><button id='header-deposit' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
+
+	/*******/
+
+	$(".config-robo").click(() => ligaRobo(this))
 
 	/*******/
 
@@ -158,7 +160,7 @@ if (pathname == "/pt/games/double") {
 					}, 15000)
 				}
 
-				if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)
+				// if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)
 
 				/*******/
 
@@ -168,14 +170,50 @@ if (pathname == "/pt/games/double") {
 
 				/*******/
 
-				// if (valorVermelho > (valorPreto * 2.5)) console.log("Oportunidade no vermelho")
-				// if (valorPreto > (valorVermelho * 2.5)) console.log("Oportunidade no preto")
+				if (valorVermelho > (valorPreto * 2.5)) console.log("Oportunidade no vermelho")
+				if (valorPreto > (valorVermelho * 2.5)) console.log("Oportunidade no preto")
+
+				/*******/
+					
+				if (bancaAtual > stopWin) {
+
+					// statusRobo = 0
+					ligaRobo($(".config-robo"))
+
+					setTimeout(() => {
+						let msg = "✅✅✅ STOP WIN ✅✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 15000)
+
+					console.log("STOPWIN BATIDO COM SUCESSO!")
+
+				}// if (bancaAtual > stopWin)
+
+				/*******/
+				
+				if (bancaAtual < stopLoss) {
+
+					// statusRobo = 0
+					ligaRobo($(".config-robo"))
+
+					setTimeout(() => {
+						let msg = "❌❌❌ STOP LOSS ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 15000)
+
+					console.log("STOPLOSS ATINGIDO")
+
+				}// if (bancaAtual < stopLoss)
 
 				/*******/
 				
 				// Verifica se o robô está ligado, e se o saldo atual da banca está entre o stopwin e o stoploss
-				if (statusRobo != 0 && (bancaAtual < stopWin || bancaAtual > stopLoss)) {
-					
+				if (statusRobo == 1) {
+
 					// Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada
 					if (valorVermelho > (valorPreto * 2.5) && vermelhoWin == false && valorVermelho >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
 
@@ -185,19 +223,7 @@ if (pathname == "/pt/games/double") {
 						vermelhoEnt = true
 						console.log("Entrou no vermelho")
 				
-					} else if (bancaAtual > stopWin) {
-
-						statusRobo = 0
-
-						alert('STOPWIN BATIDO COM SUCESSO!')
-
-					} else if (bancaAtual < stopLoss) {
-
-						statusRobo = 0
-
-						alert('STOPLOSS ATINGIDO')
-
-					}
+					} 
 
 					/*******/
 				
@@ -210,21 +236,9 @@ if (pathname == "/pt/games/double") {
 						pretoEnt = true
 						console.log("Entrou no preto")
 
-					} else if (bancaAtual > stopWin) {
-
-						statusRobo = 0
-
-						alert('STOPWIN BATIDO COM SUCESSO!')
-
-					} else if (bancaAtual < stopLoss) {
-
-						statusRobo = 0
-
-						alert('STOPLOSS ATINGIDO')
-
 					}
 
-				}// if (statusRobo != 0 && (bancaAtual < stopWin || bancaAtual > stopLoss))
+				}// if (statusRobo == 1)
 
 			}// if (verificaMudanca == "start")
 

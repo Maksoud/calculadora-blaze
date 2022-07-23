@@ -167,9 +167,12 @@ if (pathname == "/pt/games/double") {
 
 				if (vermelhoEnt == false && pretoEnt == false) {
 					console.log("valorVermelho:", valorVermelho, "valorPreto:", valorPreto)
-					if (valorVermelho > valorPreto) console.log("Vermelho " + (valorVermelho/valorPreto).toFixed(2) + "x maior")
-					if (valorPreto > valorVermelho) console.log("Preto " + (valorPreto/valorVermelho).toFixed(2) + "x maior")
-				}
+					if (valorVermelho > valorPreto) {
+						console.log("Vermelho " + (valorVermelho/valorPreto).toFixed(2) + "x maior")
+					} else if (valorVermelho < valorPreto) {
+						console.log("Preto " + (valorPreto/valorVermelho).toFixed(2) + "x maior")
+					}
+				}// if (vermelhoEnt == false && pretoEnt == false)
 
 				/*******/
 

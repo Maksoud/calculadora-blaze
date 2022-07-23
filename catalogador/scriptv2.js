@@ -40,7 +40,7 @@ if (pathname == "/pt/games/double") {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
 
-		if (document.querySelector('.config-robo .green').classList.contains('ligar')) {
+		if ($(".config-robo button").hasClass('ligar')) {
         
             statusRobo = 1
 
@@ -51,7 +51,7 @@ if (pathname == "/pt/games/double") {
 				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 			})
         
-        } else if (document.querySelector('.config-robo .red').classList.contains('desligar')) {
+        } else {
         
             statusRobo = 0
 

@@ -27,30 +27,6 @@ if (pathname == "/pt/games/double") {
 
 	/*******/
 
-	$("#casino").prepend("<div class='config-robo'><button id='header-deposit' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
-
-	/*******/
-
-	$(".config-robo").click(function() {
-
-		if (document.querySelector('.config-robo .green').classList.contains('ligar')) {
-        
-            statusRobo = 1
-
-            $(this).html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
-        
-        } else if (document.querySelector('.config-robo .red').classList.contains('desligar')) {
-        
-            statusRobo = 0
-
-            $(this).html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
-        
-        }// else if (document.querySelector('.config-robo .red').classList.contains('ligar'))
-
-	})// $(".config-robo").click
-
-	/*******/
-
     // Contador de wins
     let win  = 0
 
@@ -64,6 +40,42 @@ if (pathname == "/pt/games/double") {
 	let bancaAtual   = 0
 	let stopWin      = 0
 	let stopLoss     = 0
+
+	/*******/
+
+	$("#casino").prepend("<div class='config-robo'><button id='header-deposit' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
+
+	/*******/
+
+	$(".config-robo").click(function() {
+
+		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
+
+		if (document.querySelector('.config-robo .green').classList.contains('ligar')) {
+        
+            statusRobo = 1
+
+            $(this).html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
+
+			let msg = "✅✅ ATIVADO ✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+			})
+        
+        } else if (document.querySelector('.config-robo .red').classList.contains('desligar')) {
+        
+            statusRobo = 0
+
+            $(this).html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
+
+			let msg = "❌❌ DESATIVADO ❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+			})
+        
+        }// else if (document.querySelector('.config-robo .red').classList.contains('ligar'))
+
+	})// $(".config-robo").click
 
 	/*******/
 
@@ -111,31 +123,39 @@ if (pathname == "/pt/games/double") {
 				// Contabiliza ganhos
 				if (vermelhoEnt == true && vermelhoWin == true) {
 					win++
-					let msg = "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-					$.ajax({
-						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-					})
+					setTimeout(() => {
+						let msg = "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 15000)
 				}
 				if (vermelhoEnt == true && vermelhoWin == false) {
 					loss++
-					let msg = "❌❌❌ LOSS ❌❌❌+%0A+🔴 PERDEU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-					$.ajax({
-						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-					})
+					setTimeout(() => {
+						let msg = "❌❌❌ LOSS ❌❌❌+%0A+🔴 PERDEU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 15000)
 				}
 				if (pretoEnt == true && pretoWin == true) {
 					win++
-					let msg = "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-					$.ajax({
-						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-					})
+					setTimeout(() => {
+						let msg = "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 15000)
 				}
 				if (pretoEnt == true && pretoWin == false) {
 					loss++
-					let msg = "❌❌❌ LOSS ❌❌❌+%0A+⚫️ PERDEU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-					$.ajax({
-						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-					})
+					setTimeout(() => {
+						let msg = "❌❌❌ LOSS ❌❌❌+%0A+⚫️ PERDEU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 15000)
 				}
 
 				if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)

@@ -5,18 +5,33 @@ var pathname  	   = $(location).attr('pathname')
 
 /***************/
 
-setTimeout(function(){
-	var script = document.createElement('script')
-	script.src = './script-aut.js'
-	script.type = 'text/javascript'
-	document.getElementsByTagName('head')[0].appendChild(script)
-}, 3000);
-
-/***************/
-
 // AUMENTA E DIMINUI BOX VELAS
 
 $(document).ready(function() {
+	
+	// var script = document.createElement('script')
+	// 	script.src  = 'https://testes.iphonelab.net/script-aut.js'
+	// 	script.type = 'text/javascript'
+	// document.getElementsByTagName('body')[0].appendChild(script)
+
+	/***************/
+	
+	// Cria o botão de ligar o robô
+	// let btnChamarRobo = '<div id="btnChamarRobo"><button id="header-deposit" class="red"><i class="fas fa-play"></i> CHAMAR</button></div>'
+	
+	// Insere o botão dentro da página da blaze
+	// document.querySelector('.account').innerHTML += btnChamarRobo
+	
+	// let boxBtnChamar  = document.getElementById('btnChamarRobo')
+	
+	// boxBtnChamar.addEventListener("click", () => {
+	// 	var script = document.createElement('script')
+	// 		script.src = 'https://testes.iphonelab.net/script-aut.js'
+	// 		script.type = 'text/javascript'
+	// 	document.getElementsByTagName('body')[0].appendChild(script)
+	// })
+
+	/***************/
 
 	$('.zoomMenos').on('click', function(){ 
 

@@ -15,23 +15,6 @@ $(document).ready(function() {
 	// document.getElementsByTagName('body')[0].appendChild(script)
 
 	/***************/
-	
-	// Cria o botão de ligar o robô
-	// let btnChamarRobo = '<div id="btnChamarRobo"><button id="header-deposit" class="red"><i class="fas fa-play"></i> CHAMAR</button></div>'
-	
-	// Insere o botão dentro da página da blaze
-	// document.querySelector('.account').innerHTML += btnChamarRobo
-	
-	// let boxBtnChamar  = document.getElementById('btnChamarRobo')
-	
-	// boxBtnChamar.addEventListener("click", () => {
-	// 	var script = document.createElement('script')
-	// 		script.src = 'https://testes.iphonelab.net/script-aut.js'
-	// 		script.type = 'text/javascript'
-	// 	document.getElementsByTagName('body')[0].appendChild(script)
-	// })
-
-	/***************/
 
 	$('.zoomMenos').on('click', function(){ 
 
@@ -55,17 +38,33 @@ $(document).ready(function() {
 
 if (pathname == "/pt/games/double") {
 
-	$("#casino").prepend("<div class='boxContadorLinhas'><ul></ul><ul style='margin-top:-8px;'><li class='countAtual'></li></ul></div>");
-	$("#casino").prepend("<div class='boxCatalogadorDouble' style='width:530px!important;'></div>");
-	$("#casino").prepend("<div class='boxContadorDouble'><div class='btnIniciar'>Iniciar Catalogação</div><div class='btnResetar'>Reset Catalogação</div><div class='tituloContador'>Indicador de Tendência<span>% taxa de amostragem</span></div><div class='contadorBlack'></div><div class='contadorRed'></div><div class='contadorWhite'></div><div class='zoomMais'>&#10133;</div><div class='zoomMenos'>&#10134;</div></div>"); 
+	$("#casino").prepend("<div class='boxContadorLinhas'><ul></ul><ul style='margin-top:-8px;'><li class='countAtual'></li></ul></div>")
+	$("#casino").prepend("<div class='boxCatalogadorDouble' style='width:530px!important;'></div>")
+	$("#casino").prepend("<div class='boxContadorDouble'><div class='btnIniciar'>Iniciar Catalogação</div><div class='btnResetar'>Reset Catalogação</div><div class='tituloContador'>Indicador de Tendência<span>% taxa de amostragem</span></div><div class='contadorBlack'></div><div class='contadorRed'></div><div class='contadorWhite'></div><div class='zoomMais'>&#10133;</div><div class='zoomMenos'>&#10134;</div></div>")
+
+	/***************/
+	
+	// Cria o botão de ligar o robô
+	// $("#casino").prepend('<div id="btnChamarRobo"><button id="header-deposit" class="red"><i class="fas fa-play"></i> CHAMAR</button></div>')
+	
+	// let boxBtnChamar  = document.getElementById('btnChamarRobo')
+	
+	// boxBtnChamar.addEventListener("click", () => {
+	// 	var script = document.createElement('script')
+	// 		script.src = 'https://testes.iphonelab.net/script-aut.js'
+	// 		script.type = 'text/javascript'
+	// 	document.getElementsByTagName('body')[0].appendChild(script)
+	// })
+	
+	/***************/
 
 	// ATIVA FUNÇÕES
 
-	$( ".btnIniciar" ).click(function() {
+	$(".btnIniciar").click(function() {
 		iniciar()
 	});
 
-	$( ".btnResetar" ).click(function() {
+	$(".btnResetar").click(function() {
 		window.location.reload(true)
 	});
 
@@ -149,7 +148,7 @@ if (pathname == "/pt/games/double") {
 
 						if ((alert_qtd_black == "1") || (alert_qtd_red == "1")) {
 							$(".alertar").fadeIn();
-						}
+						}// if ((alert_qtd_black == "1") || (alert_qtd_red == "1"))
 
 					}// if (qtd_linhas == "11")
 

@@ -1,9 +1,11 @@
 $(document).ready(function() {
 
-    var script = document.createElement('script')
-    script.src = 'https://code.jquery.com/jquery-3.4.1.min.js'
-    script.type = 'text/javascript'
-    document.getElementsByTagName('head')[0].appendChild(script)
+    // var script = document.createElement('script')
+    // script.src = 'https://code.jquery.com/jquery-3.4.1.min.js'
+    // script.type = 'text/javascript'
+    // document.getElementsByTagName('head')[0].appendChild(script)
+
+    // $("head").prepend("<script src='https://code.jquery.com/jquery-3.4.1.min.js' type='text/javascript'></script>")
 
     /***************/
 
@@ -73,10 +75,12 @@ $(document).ready(function() {
     /***************/
 
     // Cria o botão de ligar o robô
-    let botao = '<div class="config-robo"><button id="header-deposit" class="red ligar"><i class="fas fa-play"></i> LIGAR</button></div>'
+    // let botao = '<div class="config-robo"><button id="header-deposit" class="red ligar"><i class="fas fa-play"></i> LIGAR</button></div>'
 
     // Insere o botão dentro da página da blaze
-    document.querySelector('.account').innerHTML += botao
+    // document.querySelector('.account').innerHTML += botao
+
+    $("#casino").prepend('<div class="config-robo"><button id="header-deposit" class="red ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
 
     // Seleciona a div do botão
     let boxBotao = document.querySelector('.config-robo')
@@ -190,7 +194,7 @@ $(document).ready(function() {
             } else if (document.querySelector('.currency').innerHTML.split('</span>')[1] > stopWin) {
 
                 statusRobo = 0
-                
+
                 alert('STOPWIN BATIDO COM SUCESSO!')
 
             } else if (document.querySelector('.currency').innerHTML.split('</span>')[1] < stopLoss) {

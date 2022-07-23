@@ -333,3 +333,8 @@
   color:#fff;
   margin-left: 5px;
 }
+
+button.ligar, button.desligar {
+  width: 225px;
+  float: left;
+}

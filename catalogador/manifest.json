@@ -8,7 +8,7 @@
         "https://blaze.com/pt/games/double*",
         "https://blaze.com/pt/games/crash*"
       ],
-      "js" : ["jquery-3.6.0.min.js", "script.js"],
+      "js" : ["jquery-3.6.0.min.js", "scriptv2.js"],
       "css" : ["style.css"],
       "run_at" : "document_end"
     }

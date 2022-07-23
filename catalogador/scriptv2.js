@@ -164,82 +164,181 @@ if (pathname == "/pt/games/double") {
 				pretoEnt    = false
 
 				/*******/
-
-				if (valorVermelho > (valorPreto * 2.5)) console.log("Oportunidade no vermelho")
-				if (valorPreto > (valorVermelho * 2.5)) console.log("Oportunidade no preto")
-
-				/*******/
 					
-				if (bancaAtual > stopWin) {
+				// if (bancaAtual > stopWin) {
 
-					// statusRobo = 0
-					ligaRobo($(".config-robo"))
+				// 	// statusRobo = 0
+				// 	ligaRobo($(".config-robo"))
 
-					setTimeout(() => {
-						let msg = "✅✅✅ STOP WIN ✅✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
+				// 	setTimeout(() => {
+				// 		let msg = "✅✅✅ STOP WIN ✅✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+				// 		$.ajax({
+				// 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+				// 		})
+				// 	}, 15000)
 
-					console.log("STOPWIN BATIDO COM SUCESSO!")
+				// 	console.log("STOPWIN BATIDO COM SUCESSO!")
 
-				}// if (bancaAtual > stopWin)
+				// }// if (bancaAtual > stopWin)
 
-				/*******/
+				// /*******/
 				
-				if (bancaAtual < stopLoss) {
+				// if (bancaAtual < stopLoss) {
 
-					// statusRobo = 0
-					ligaRobo($(".config-robo"))
+				// 	// statusRobo = 0
+				// 	ligaRobo($(".config-robo"))
 
-					setTimeout(() => {
-						let msg = "❌❌❌ STOP LOSS ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
+				// 	setTimeout(() => {
+				// 		let msg = "❌❌❌ STOP LOSS ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+				// 		$.ajax({
+				// 			url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+				// 		})
+				// 	}, 15000)
 
-					console.log("STOPLOSS ATINGIDO")
+				// 	console.log("STOPLOSS ATINGIDO")
 
-				}// if (bancaAtual < stopLoss)
+				// }// if (bancaAtual < stopLoss)
 
-				/*******/
+				// /*******/
 				
-				// Verifica se o robô está ligado, e se o saldo atual da banca está entre o stopwin e o stoploss
-				if (statusRobo == 1) {
+				// // Verifica se o robô está ligado, e se o saldo atual da banca está entre o stopwin e o stoploss
+				// if (statusRobo == 1) {
 
-					// Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada
-					if (valorVermelho > (valorPreto * 2.5) && vermelhoWin == false && valorVermelho >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
+				// 	if (valorVermelho > (valorPreto * 2.5)) {
+				// 		console.log("Oportunidade no vermelho")
+				// 		console.log("vermelhoWin", vermelhoWin)
+				// 		console.log("valorVermelho >= minimoTotal", valorVermelho >= minimoTotal)
+				// 		// console.log("timeLeft >= tempoMinimo", timeLeft >= tempoMinimo)
+				// 		// console.log("timeLeft <= tempoMax", timeLeft <= tempoMax)
+				// 		console.log("--------------");
+				// 	}
+				// 	if (valorPreto > (valorVermelho * 2.5)) {
+				// 		console.log("Oportunidade no preto")
+				// 		console.log("pretoWin", pretoWin)
+				// 		console.log("valorPreto >= minimoTotal", valorPreto >= minimoTotal)
+				// 		// console.log("timeLeft >= tempoMinimo", timeLeft >= tempoMinimo)
+				// 		// console.log("timeLeft <= tempoMax", timeLeft <= tempoMax)
+				// 		console.log("--------------");
+				// 	}
+	
+				// 	/*******/
 
-						$(".input-wrapper .red").click()
-						$(".place-bet .undefined").click()
+				// 	// Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada
+				// 	if (valorVermelho > (valorPreto * 2.5) && vermelhoWin == false && valorVermelho >= minimoTotal) { // && timeLeft >= tempoMinimo && timeLeft <= tempoMax
 
-						vermelhoEnt = true
-						console.log("Entrou no vermelho")
+				// 		setTimeout(() => {
+
+				// 			$(".input-wrapper .red").click()
+				// 			$(".place-bet .undefined").click()
+
+				// 			vermelhoEnt = true
+				// 			console.log("Entrou no vermelho")
+
+				// 		}, 16000)
 				
-					} 
+				// 	} 
 
-					/*******/
+				// 	/*******/
 				
-					// Se o valor de apostas do preto for maior que o valor do vermelho vezes 3, ele valida a entrada
-					if (valorPreto > (valorVermelho * 2.5) && pretoWin == false && valorPreto >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
+				// 	// Se o valor de apostas do preto for maior que o valor do vermelho vezes 3, ele valida a entrada
+				// 	if (valorPreto > (valorVermelho * 2.5) && pretoWin == false && valorPreto >= minimoTotal) { // && timeLeft >= tempoMinimo && timeLeft <= tempoMax
 
-						$(".input-wrapper .black").click()
-						$(".place-bet .undefined").click()
+				// 		setTimeout(() => {
 
-						pretoEnt = true
-						console.log("Entrou no preto")
+				// 			$(".input-wrapper .black").click()
+				// 			$(".place-bet .undefined").click()
 
-					}
+				// 			pretoEnt = true
+				// 			console.log("Entrou no preto")
 
-				}// if (statusRobo == 1)
+				// 		}, 16000)
+
+				// 	}
+
+				// }// if (statusRobo == 1)
 
 			}// if (verificaMudanca == "start")
 
 		}// mutationHandler
 	
 	}, 500)
+
+    /***************/
+
+    setInterval(function () {
+
+		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
+
+		/*******/
+        
+        // Verifica se o robô está ligado, e se o saldo atual da banca está entre o stopwin e o stoploss
+        if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss)) {
+			
+			if (bancaAtual > stopWin) {
+
+                // statusRobo = 0
+				ligaRobo()
+
+                setTimeout(() => {
+					let msg = "✅✅✅ STOP WIN ✅✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+					$.ajax({
+						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+					})
+				}, 15000)
+
+				console.log("STOPWIN BATIDO COM SUCESSO!")
+
+            }// if (bancaAtual > stopWin)
+
+            /*******/
+
+			if (bancaAtual < stopLoss) {
+
+                // statusRobo = 0
+				ligaRobo()
+
+				setTimeout(() => {
+					let msg = "❌❌❌ STOP LOSS ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+					$.ajax({
+						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+					})
+				}, 15000)
+
+				console.log("STOPLOSS ATINGIDO")
+
+            }// if (bancaAtual < stopLoss)
+
+            /*******/
+            
+            // Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada
+            if (valorVermelho > (valorPreto * 3) && vermelhoWin == false && valorVermelho >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
+
+                rodadaVermelho = 1
+
+                $(".input-wrapper .red").click()
+				$(".place-bet .undefined").click()
+
+				vermelhoEnt = true
+				console.log("Entrou no vermelho")
+        
+            }
+
+            /*******/
+        
+            // Se o valor de apostas do preto for maior que o valor do vermelho vezes 3, ele valida a entrada
+            if (valorPreto > (valorVermelho * 3) && pretoWin == false && valorPreto >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
+
+                $(".input-wrapper .black").click()
+				$(".place-bet .undefined").click()
+
+				pretoEnt = true
+				console.log("Entrou no preto")
+
+            }
+
+        }// if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss))
+
+    }, 3000)
 
 	/*******/
 

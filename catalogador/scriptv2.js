@@ -50,7 +50,7 @@ if (pathname == "/pt/games/double") {
 
             $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
 
-			let msg = "✅✅ ATIVADO ✅✅+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
+			let msg = "✅ ATIVADO ✅+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
 				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 			})
@@ -61,7 +61,7 @@ if (pathname == "/pt/games/double") {
 
             $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
 
-			let msg = "❌❌ DESATIVADO ❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀"
+			let msg = "❌ DESATIVADO ❌+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
 				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 			})
@@ -92,8 +92,10 @@ if (pathname == "/pt/games/double") {
 		switch(cor) {
 			case "red":
 				$(".input-wrapper .red").click()
+				
+				console.log("Entrou no vermelho")
 
-				msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀"
+				msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀 R$ " + valor
 				$.ajax({
 					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 				})
@@ -101,15 +103,19 @@ if (pathname == "/pt/games/double") {
 			case "black":
 				$(".input-wrapper .black").click()
 
-				msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀"
+				console.log("Entrou no preto")
+
+				msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀 R$ " + valor
 				$.ajax({
 					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 				})
 			break;
 			case "white":
 				$(".input-wrapper .white").click()
+				
+				console.log("Entrou no branco")
 
-				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀"
+				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + valor
 				$.ajax({
 					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 				})
@@ -126,14 +132,20 @@ if (pathname == "/pt/games/double") {
 		// Cobre o branco
 		if (valor > defaultValue) {
 
-			$('input.input-field').val(defaultValue)
-			$(".input-wrapper .white").click()
-			$(".place-bet .undefined").click()
+			setTimeout(() => {
 
-			msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀"
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-			})
+				$('input.input-field').val(defaultValue)
+				$(".input-wrapper .white").click()
+				$(".place-bet .undefined").click()
+					
+				console.log("Cobriu o branco")
+
+				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + defaultValue
+				$.ajax({
+					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+				})
+
+			}, 1000)
 
 		}// if (valor > defaultValue)
 
@@ -192,85 +204,9 @@ if (pathname == "/pt/games/double") {
 
 				/*******/
 
-				// Contabiliza ganhos/perdas
-				if (vermelhoEnt == true && redWin == true) {
-
-					win++
-					martinGale  = 1
-					rodadasGale = 0
-
-					setTimeout(() => {
-						let msg = "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
-
-				}// if (vermelhoEnt == true && redWin == true)
-				if (vermelhoEnt == true && redWin == false) {
-
-					loss++
-					martinGale++
-					rodadasGale++
-
-					setTimeout(() => {
-						let msg = "❌❌❌ LOSS ❌❌❌+%0A+🔴 PERDEU NO VERMELHO 🔴+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
-
-				}// if (vermelhoEnt == true && redWin == false)
-				if (pretoEnt == true && blackWin == true) {
-
-					win++
-					martinGale  = 1
-					rodadasGale = 0
-
-					setTimeout(() => {
-						let msg = "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
-
-				}// if (pretoEnt == true && blackWin == true)
-				if (pretoEnt == true && blackWin == false) {
-
-					loss++
-					martinGale++
-					rodadasGale++
-
-					setTimeout(() => {
-						let msg = "❌❌❌ LOSS ❌❌❌+%0A+⚫️ PERDEU NO PRETO ⚫️+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
-
-				}// if (pretoEnt == true && blackWin == false)
-				if (brancoEnt == true && whiteWin == true) {
-
-					win++
-					martinGale  = 1
-					rodadasGale = 0
-
-					setTimeout(() => {
-						let msg = "✅✅ WINNNN ✅✅+%0A+⚪️ PAGOU NO BRANCO ⚪️🤑🤑🤑+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-						$.ajax({
-							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-						})
-					}, 15000)
-
-				}// if (brancoEnt == true && whiteWin == true)
-
-				/*******/
-
-				// if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)
-
 				if (vermelhoEnt == false && pretoEnt == false) {
 
-					console.log("valorVermelho:", valorVermelho, "valorPreto:", valorPreto)
+					console.log("valorVermelho:", valorVermelho, "valorPreto:", valorPreto, "valorBranco:", valorBranco)
 
 					if (valorVermelho > valorPreto) {
 
@@ -286,9 +222,96 @@ if (pathname == "/pt/games/double") {
 
 				/*******/
 
-				// Entradas do vermelho/preto
-				vermelhoEnt = false
-				pretoEnt    = false
+				// Contabiliza ganhos/perdas
+				if (vermelhoEnt == true && redWin == true) {
+
+					win++
+					martinGale  = 1
+					rodadasGale = 0
+
+					// Entradas do vermelho/preto/branco
+					vermelhoEnt = false
+
+					setTimeout(() => {
+						let msg = "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO VERMELHO 🔴+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 12000)
+
+				}// if (vermelhoEnt == true && redWin == true)
+				if (vermelhoEnt == true && redWin == false) {
+
+					loss++
+					martinGale++
+					rodadasGale++
+
+					// Entradas do vermelho/preto/branco
+					vermelhoEnt = false
+
+					setTimeout(() => {
+						let msg = "❌❌❌ LOSS ❌❌❌+%0A+🔴 PERDEU NO VERMELHO 🔴+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 12000)
+
+				}// if (vermelhoEnt == true && redWin == false)
+				if (pretoEnt == true && blackWin == true) {
+
+					win++
+					martinGale  = 1
+					rodadasGale = 0
+
+					// Entradas do vermelho/preto/branco
+					pretoEnt    = false
+
+					setTimeout(() => {
+						let msg = "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO PRETO ⚫️+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 12000)
+
+				}// if (pretoEnt == true && blackWin == true)
+				if (pretoEnt == true && blackWin == false) {
+
+					loss++
+					martinGale++
+					rodadasGale++
+
+					// Entradas do vermelho/preto/branco
+					pretoEnt    = false
+
+					setTimeout(() => {
+						let msg = "❌❌❌ LOSS ❌❌❌+%0A+⚫️ PERDEU NO PRETO ⚫️+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 12000)
+
+				}// if (pretoEnt == true && blackWin == false)
+				if (brancoEnt == true && whiteWin == true) {
+
+					win++
+					martinGale  = 1
+					rodadasGale = 0
+
+					// Entradas do vermelho/preto/branco
+					brancoEnt   = false
+
+					setTimeout(() => {
+						let msg = "✅✅✅ WINNNN ✅✅✅+%0A+⚪️ PAGOU NO BRANCO ⚪️🤑🤑🤑+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+						$.ajax({
+							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+						})
+					}, 12000)
+
+				}// if (brancoEnt == true && whiteWin == true)
+
+				/*******/
+
+				// if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)
 
 			}// if (verificaMudanca == "start")
 
@@ -301,6 +324,21 @@ if (pathname == "/pt/games/double") {
     setInterval(function () {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
+
+		/*******/
+
+		if (rodadasGale > 3) {
+
+			ligaRobo()
+
+			let msg = "❌❌❌ STOP GALE ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+			})
+
+			console.log("STOPGALE ATINGIDO")
+
+		}// if (rodadasGale > 3)
 
 		/*******/
         
@@ -350,14 +388,9 @@ if (pathname == "/pt/games/double") {
 
 					placeBet("red", (defaultValue*martinGale))
 
-					// $(".input-wrapper .red").click()
-					// $(".place-bet .undefined").click()
-
 					vermelhoEnt = true
-					console.log("Entrou no vermelho")
+					pretoEnt    = false
 
-					
-			
 				}// if (valorVermelho > (valorPreto * multiplicador) && vermelhoWin == false)
 
 				/*******/
@@ -367,13 +400,8 @@ if (pathname == "/pt/games/double") {
 
 					placeBet("black", (defaultValue*martinGale))
 
-					// $(".input-wrapper .black").click()
-					// $(".place-bet .undefined").click()
-
-					pretoEnt = true
-					console.log("Entrou no preto")
-
-					
+					vermelhoEnt = false
+					pretoEnt    = true
 
 				}// if (valorPreto > (valorVermelho * multiplicador) && pretoWin == false)
 

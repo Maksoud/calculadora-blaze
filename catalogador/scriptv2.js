@@ -120,9 +120,7 @@ if (pathname == "/pt/games/double") {
 
 			for (let i = entradaDobrada; i > 0; i--) {
 
-				setTimeout(() => {
-					$('button.grey.half').click()
-				},200)
+				$('button.grey.half').click()
 
 			}// for (let i = reduce; i > 0; i--)
 
@@ -168,24 +166,18 @@ if (pathname == "/pt/games/double") {
 
 				// Entra com o valor mínimo
 				for (let i = entradaDobrada; i > 0; i--) {
-
-					setTimeout(() => {
-						$('button.grey.half').click()
-					},200)
-	
-				}// for (let i = reduce; i > 0; i--)
+					$('button.grey.half').click()
+				}// for (let i = entradaDobrada; i > 0; i--)
 	
 				// Aposta
+				// setTimeout(() => {
 				$(".input-wrapper .white").click()
+				// }, 500)
 
 				// Retorna o valor da aposta para o anterior
 				for (let i = entradaDobrada; i > 0; i--) {
-
-					setTimeout(() => {
-						$('button.grey.double').click()
-					},200)
-	
-				}// for (let i = reduce; i > 0; i--)
+					$('button.grey.double').click()
+				}// for (let i = entradaDobrada; i > 0; i--)
 				
 				console.log("Entrou no branco")
 
@@ -202,7 +194,9 @@ if (pathname == "/pt/games/double") {
 		/*******/
 
 		// Place bet
-		$(".place-bet .undefined").click()
+		// setTimeout(() => {
+			$(".place-bet .undefined").click()
+		// }, 500)
 
 	}// placeBet
 
@@ -395,7 +389,7 @@ if (pathname == "/pt/games/double") {
 
         if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss)) {
 
-			if (martinGale > 1 && timeLeft >= tempoMinimo && timeLeft <= (tempoMax+3)) {
+			if (martinGale > 1 && timeLeft >= tempoMinimo+2 && timeLeft <= (tempoMax+3)) {
 
 				placeBet("white", defaultValue)
 
@@ -403,7 +397,7 @@ if (pathname == "/pt/games/double") {
 
 		}// if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss))
 
-    }, 5000)
+    }, 3000)
 
     /***************/
 

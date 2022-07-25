@@ -19,6 +19,7 @@ if (pathname == "/pt/games/double") {
 	let vermelhoEnt    = false
     let pretoWin       = false
 	let pretoEnt	   = false
+	let brancoEnt	   = false
     // let comecarJogo    = $(".place-bet .undefined")
     // let dobrarEntrada  = $(".double")
     // let dividirEntrada = $(".half")
@@ -37,9 +38,11 @@ if (pathname == "/pt/games/double") {
 	let martinGale    = 1
 	let rodadasGale   = 0
 	let defaultValue  = 2
+	let entradaDobrada = 0
 
 	/*******/
 
+	// LIGA/DESLIGA O ROBÔ
 	function ligaRobo() {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
@@ -80,17 +83,42 @@ if (pathname == "/pt/games/double") {
 
 	/*******/
 
+	// FAZ A APOSTA
 	function placeBet(cor, valor) {
 
 		// Set value
-		$('div.input-field-wrapper').addClass('filled')
-		$('input.input-field').val(valor)
+		let cassinoValue = parseFloat($('input.input-field').val())
+
+		// console.log("valor", valor)
+		// console.log("defaultValue", defaultValue)
+		// console.log("cassino Value", cassinoValue)
+
+		if (valor > defaultValue) {
+
+			$('button.grey.double').click()
+
+			entradaDobrada++
+
+		} else if (cassinoValue > defaultValue) {
+
+			for (let i = entradaDobrada; i > 0; i--) {
+
+				setTimeout(() => {
+					$('button.grey.half').click()
+				},200)
+
+			}// for (let i = reduce; i > 0; i--)
+
+			entradaDobrada = 0
+
+		}// else if (cassinoValue > defaultValue)
 
 		/*******/
 
 		// Select color
 		switch(cor) {
 			case "red":
+
 				$(".input-wrapper .red").click()
 				
 				console.log("Entrou no vermelho")
@@ -99,8 +127,13 @@ if (pathname == "/pt/games/double") {
 				$.ajax({
 					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 				})
+
+				vermelhoEnt = true
+				pretoEnt    = false
+
 			break;
 			case "black":
+
 				$(".input-wrapper .black").click()
 
 				console.log("Entrou no preto")
@@ -109,16 +142,43 @@ if (pathname == "/pt/games/double") {
 				$.ajax({
 					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 				})
+				
+				vermelhoEnt = false
+				pretoEnt    = true
+
 			break;
 			case "white":
+
+				// Entra com o valor mínimo
+				for (let i = entradaDobrada; i > 0; i--) {
+
+					setTimeout(() => {
+						$('button.grey.half').click()
+					},200)
+	
+				}// for (let i = reduce; i > 0; i--)
+	
+				// Aposta
 				$(".input-wrapper .white").click()
+
+				// Retorna o valor da aposta para o anterior
+				for (let i = entradaDobrada; i > 0; i--) {
+
+					setTimeout(() => {
+						$('button.grey.double').click()
+					},200)
+	
+				}// for (let i = reduce; i > 0; i--)
 				
 				console.log("Entrou no branco")
 
-				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + valor
+				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + defaultValue
 				$.ajax({
 					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 				})
+
+				brancoEnt = true
+
 			break;
 		}// switch(cor)
 
@@ -127,32 +187,11 @@ if (pathname == "/pt/games/double") {
 		// Place bet
 		$(".place-bet .undefined").click()
 
-		/*******/
-
-		// Cobre o branco
-		if (valor > defaultValue) {
-
-			setTimeout(() => {
-
-				$('input.input-field').val(defaultValue)
-				$(".input-wrapper .white").click()
-				$(".place-bet .undefined").click()
-					
-				console.log("Cobriu o branco")
-
-				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + defaultValue
-				$.ajax({
-					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-				})
-
-			}, 1000)
-
-		}// if (valor > defaultValue)
-
 	}// placeBet
 
 	/*******/
 
+	// CARREGA SALDO DA BANCA
 	let bancaInterval = setInterval(() => {
 
 		if ($(".amount .currency:first").html().split('</span>')[1] != undefined) clearInterval(bancaInterval)
@@ -172,6 +211,7 @@ if (pathname == "/pt/games/double") {
 
 	/*******/
 
+	// IDENTIFICA ÚLTIMO SORTEIO
 	setTimeout(function() {
 			
 		var targetNodes      = $(".main")
@@ -206,13 +246,15 @@ if (pathname == "/pt/games/double") {
 
 				if (vermelhoEnt == false && pretoEnt == false) {
 
-					console.log("valorVermelho:", valorVermelho, "valorPreto:", valorPreto, "valorBranco:", valorBranco)
+					console.log("valorVermelho:", valorVermelho)
+					console.log("valorPreto:", valorPreto)
+					console.log("valorBranco:", valorBranco)
 
-					if (valorVermelho > valorPreto) {
+					if (Number(valorVermelho) > Number(valorPreto)) {
 
 						console.log("Vermelho " + (valorVermelho/valorPreto).toFixed(2) + "x maior")
 
-					} else if (valorVermelho < valorPreto) {
+					} else if (valorVermelho != valorPreto) {
 
 						console.log("Preto " + (valorPreto/valorVermelho).toFixed(2) + "x maior")
 
@@ -232,6 +274,8 @@ if (pathname == "/pt/games/double") {
 					// Entradas do vermelho/preto/branco
 					vermelhoEnt = false
 
+					console.log("Ganhou no vermelho")
+
 					setTimeout(() => {
 						let msg = "✅✅ WINNNN ✅✅+%0A+🔴 PAGOU NO VERMELHO 🔴+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
 						$.ajax({
@@ -248,6 +292,8 @@ if (pathname == "/pt/games/double") {
 
 					// Entradas do vermelho/preto/branco
 					vermelhoEnt = false
+
+					console.log("Perdeu no vermelho")
 
 					setTimeout(() => {
 						let msg = "❌❌❌ LOSS ❌❌❌+%0A+🔴 PERDEU NO VERMELHO 🔴+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -266,6 +312,8 @@ if (pathname == "/pt/games/double") {
 					// Entradas do vermelho/preto/branco
 					pretoEnt    = false
 
+					console.log("Ganhou no preto")
+
 					setTimeout(() => {
 						let msg = "✅✅ WINNNN ✅✅+%0A+⚫️ PAGOU NO PRETO ⚫️+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
 						$.ajax({
@@ -283,6 +331,8 @@ if (pathname == "/pt/games/double") {
 					// Entradas do vermelho/preto/branco
 					pretoEnt    = false
 
+					console.log("Perdeu no preto")
+
 					setTimeout(() => {
 						let msg = "❌❌❌ LOSS ❌❌❌+%0A+⚫️ PERDEU NO PRETO ⚫️+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
 						$.ajax({
@@ -299,6 +349,8 @@ if (pathname == "/pt/games/double") {
 
 					// Entradas do vermelho/preto/branco
 					brancoEnt   = false
+
+					console.log("Ganhou no branco")
 
 					setTimeout(() => {
 						let msg = "✅✅✅ WINNNN ✅✅✅+%0A+⚪️ PAGOU NO BRANCO ⚪️🤑🤑🤑+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -321,6 +373,24 @@ if (pathname == "/pt/games/double") {
 
     /***************/
 
+	// ENTRADAS DO BRANCO
+    setInterval(function () {
+
+        if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss)) {
+
+			if (martinGale > 1 && timeLeft >= tempoMinimo && timeLeft <= (tempoMax+3)) {
+
+				placeBet("white", defaultValue)
+
+			}// if (martinGale > 1 && timeLeft >= tempoMinimo && timeLeft <= tempoMax)
+
+		}// if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss))
+
+    }, 5000)
+
+    /***************/
+
+	// ENTRADAS DO PRETO/VERMELHO
     setInterval(function () {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
@@ -329,7 +399,10 @@ if (pathname == "/pt/games/double") {
 
 		if (rodadasGale > 3) {
 
+			// Delisga o robô
 			ligaRobo()
+
+			rodadasGale = 0
 
 			let msg = "❌❌❌ STOP GALE ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
 			$.ajax({
@@ -347,7 +420,7 @@ if (pathname == "/pt/games/double") {
 			
 			if (bancaAtual > stopWin) {
 
-                // statusRobo = 0
+                // Delisga o robô
 				ligaRobo()
 
                 setTimeout(() => {
@@ -365,7 +438,7 @@ if (pathname == "/pt/games/double") {
 
 			if (bancaAtual < stopLoss) {
 
-                // statusRobo = 0
+                // Delisga o robô
 				ligaRobo()
 
 				setTimeout(() => {
@@ -388,9 +461,6 @@ if (pathname == "/pt/games/double") {
 
 					placeBet("red", (defaultValue*martinGale))
 
-					vermelhoEnt = true
-					pretoEnt    = false
-
 				}// if (valorVermelho > (valorPreto * multiplicador) && vermelhoWin == false)
 
 				/*******/
@@ -399,9 +469,6 @@ if (pathname == "/pt/games/double") {
 				if (valorPreto > (valorVermelho * multiplicador) && pretoWin == false) {
 
 					placeBet("black", (defaultValue*martinGale))
-
-					vermelhoEnt = false
-					pretoEnt    = true
 
 				}// if (valorPreto > (valorVermelho * multiplicador) && pretoWin == false)
 

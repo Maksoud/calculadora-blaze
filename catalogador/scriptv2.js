@@ -23,21 +23,21 @@ if (pathname == "/pt/games/double") {
     // let comecarJogo    = $(".place-bet .undefined")
     // let dobrarEntrada  = $(".double")
     // let dividirEntrada = $(".half")
-	// let branco 		   = $(".input-wrapper .white")
+	// let branco 		  = $(".input-wrapper .white")
     // let brancoWin      = ""
 
 	/*******/
 
-    let win  		  = 0
-    let loss 		  = 0
-	let bancaInicial  = 0
-	let bancaAtual    = 0
-	let stopWin       = 0
-	let stopLoss      = 0
-	let multiplicador = 3
-	let martinGale    = 1
-	let rodadasGale   = 0
-	let defaultValue  = 2
+    let win  		   = 0
+    let loss 		   = 0
+	let bancaInicial   = 0
+	let bancaAtual     = 0
+	let stopWin        = 0
+	let stopLoss       = 0
+	let multiplicador  = 3
+	let martinGale     = 1
+	let rodadasGale    = 0
+	let defaultValue   = 2
 	let entradaDobrada = 0
 
 	/*******/
@@ -61,6 +61,23 @@ if (pathname == "/pt/games/double") {
         } else {
         
             statusRobo = 0
+
+			win  		   = 0
+			loss 		   = 0
+			bancaInicial   = 0
+			bancaAtual     = 0
+			stopWin        = 0
+			stopLoss       = 0
+			multiplicador  = 3
+			martinGale     = 1
+			rodadasGale    = 0
+			defaultValue   = 2
+			entradaDobrada = 0
+			vermelhoWin    = false
+			vermelhoEnt    = false
+			pretoWin       = false
+			pretoEnt	   = false
+			brancoEnt	   = false
 
             $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
 

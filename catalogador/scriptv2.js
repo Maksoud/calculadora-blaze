@@ -9,7 +9,7 @@ if (pathname == "/pt/games/double") {
 
 	let minimoTotal = 0
     let tempoMinimo = 1
-    let tempoMax    = 3
+    let tempoMax    = 4
     let statusRobo  = 0
 
 	/*******/
@@ -62,6 +62,13 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 0
 
+            $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
+
+			let msg = "❌ DESATIVADO ❌+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀"
+			$.ajax({
+				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+			})
+
 			win  		   = 0
 			loss 		   = 0
 			bancaInicial   = 0
@@ -78,13 +85,6 @@ if (pathname == "/pt/games/double") {
 			pretoWin       = false
 			pretoEnt	   = false
 			brancoEnt	   = false
-
-            $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
-
-			let msg = "❌ DESATIVADO ❌+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀"
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-			})
         
         }// else if (document.querySelector('.config-robo .red').classList.contains('ligar'))
 
@@ -106,13 +106,18 @@ if (pathname == "/pt/games/double") {
 		// Set value
 		let cassinoValue = parseFloat($('input.input-field').val())
 
-		// console.log("valor", valor)
+		console.log("cor", cor)
+		console.log("valor", valor)
 		// console.log("defaultValue", defaultValue)
 		// console.log("cassino Value", cassinoValue)
 
 		if (valor > defaultValue) {
 
-			$('button.grey.double').click()
+			for (let i = entradaDobrada; i > 0; i--) {
+
+				$('button.grey.double').click()
+
+			}// for (let i = reduce; i > 0; i--)
 
 			entradaDobrada++
 
@@ -134,69 +139,115 @@ if (pathname == "/pt/games/double") {
 		switch(cor) {
 			case "red":
 
-				$(".input-wrapper .red").click()
+				if (vermelhoEnt == false) {
+
+					vermelhoEnt = true
+					pretoEnt    = false
+
+					/*******/
+
+					$(".input-wrapper .red").click()
+
+					/*******/
 				
-				console.log("Entrou no vermelho")
+					console.log("Entrou no vermelho")
 
-				msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀 R$ " + valor
-				$.ajax({
-					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-				})
+					/*******/
 
-				vermelhoEnt = true
-				pretoEnt    = false
+					msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀 R$ " + valor
+					$.ajax({
+						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+					})
+
+					/*******/
+			
+					// Place bet
+					setTimeout(() => {
+						$(".place-bet .undefined").click()
+					}, 100)
+
+				}// if (vermelhoEnt == false)				
 
 			break;
 			case "black":
 
-				$(".input-wrapper .black").click()
+				if (pretoEnt == false) {
+					
+					vermelhoEnt = false
+					pretoEnt    = true
 
-				console.log("Entrou no preto")
+					/*******/
 
-				msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀 R$ " + valor
-				$.ajax({
-					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-				})
-				
-				vermelhoEnt = false
-				pretoEnt    = true
+					$(".input-wrapper .black").click()
+
+					/*******/
+
+					console.log("Entrou no preto")
+
+					/*******/
+	
+					msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀 R$ " + valor
+					$.ajax({
+						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+					})
+
+					/*******/
+			
+					// Place bet
+					setTimeout(() => {
+						$(".place-bet .undefined").click()
+					}, 100)
+
+				}// if (pretoEnt == false)
 
 			break;
 			case "white":
 
-				// Entra com o valor mínimo
-				for (let i = entradaDobrada; i > 0; i--) {
-					$('button.grey.half').click()
-				}// for (let i = entradaDobrada; i > 0; i--)
-	
-				// Aposta
-				// setTimeout(() => {
-				$(".input-wrapper .white").click()
-				// }, 500)
+				if (brancoEnt == false) {
 
-				// Retorna o valor da aposta para o anterior
-				for (let i = entradaDobrada; i > 0; i--) {
-					$('button.grey.double').click()
-				}// for (let i = entradaDobrada; i > 0; i--)
-				
-				console.log("Entrou no branco")
+					brancoEnt = true
 
-				msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + defaultValue
-				$.ajax({
-					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-				})
+					/*******/
 
-				brancoEnt = true
+					// Entra com o valor mínimo
+					for (let i = entradaDobrada; i > 0; i--) {
+						$('button.grey.half').click()
+					}// for (let i = entradaDobrada; i > 0; i--)
+
+					/*******/
+		
+					// Aposta
+					$(".input-wrapper .white").click()
+
+					/*******/
+
+					// Retorna o valor da aposta para o anterior
+					for (let i = entradaDobrada; i > 0; i--) {
+						$('button.grey.double').click()
+					}// for (let i = entradaDobrada; i > 0; i--)
+
+					/*******/
+					
+					console.log("Entrou no branco")
+
+					/*******/
+
+					msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + defaultValue
+					$.ajax({
+						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+					})
+
+					/*******/
+			
+					// Place bet
+					setTimeout(() => {
+						$(".place-bet .undefined").click()
+					}, 100)
+
+				}// if (brancoEnt == false)
 
 			break;
 		}// switch(cor)
-
-		/*******/
-
-		// Place bet
-		// setTimeout(() => {
-			$(".place-bet .undefined").click()
-		// }, 500)
 
 	}// placeBet
 
@@ -283,7 +334,7 @@ if (pathname == "/pt/games/double") {
 					rodadasGale = 0
 
 					// Entradas do vermelho/preto/branco
-					vermelhoEnt = false
+					// vermelhoEnt = false
 
 					console.log("Ganhou no vermelho")
 
@@ -292,7 +343,7 @@ if (pathname == "/pt/games/double") {
 						$.ajax({
 							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 						})
-					}, 12000)
+					}, 10000)
 
 				}// if (vermelhoEnt == true && redWin == true)
 				if (vermelhoEnt == true && redWin == false) {
@@ -302,7 +353,7 @@ if (pathname == "/pt/games/double") {
 					rodadasGale++
 
 					// Entradas do vermelho/preto/branco
-					vermelhoEnt = false
+					// vermelhoEnt = false
 
 					console.log("Perdeu no vermelho")
 
@@ -311,7 +362,7 @@ if (pathname == "/pt/games/double") {
 						$.ajax({
 							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 						})
-					}, 12000)
+					}, 10000)
 
 				}// if (vermelhoEnt == true && redWin == false)
 				if (pretoEnt == true && blackWin == true) {
@@ -321,7 +372,7 @@ if (pathname == "/pt/games/double") {
 					rodadasGale = 0
 
 					// Entradas do vermelho/preto/branco
-					pretoEnt    = false
+					// pretoEnt    = false
 
 					console.log("Ganhou no preto")
 
@@ -330,7 +381,7 @@ if (pathname == "/pt/games/double") {
 						$.ajax({
 							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 						})
-					}, 12000)
+					}, 10000)
 
 				}// if (pretoEnt == true && blackWin == true)
 				if (pretoEnt == true && blackWin == false) {
@@ -340,7 +391,7 @@ if (pathname == "/pt/games/double") {
 					rodadasGale++
 
 					// Entradas do vermelho/preto/branco
-					pretoEnt    = false
+					// pretoEnt    = false
 
 					console.log("Perdeu no preto")
 
@@ -349,7 +400,7 @@ if (pathname == "/pt/games/double") {
 						$.ajax({
 							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 						})
-					}, 12000)
+					}, 10000)
 
 				}// if (pretoEnt == true && blackWin == false)
 				if (brancoEnt == true && whiteWin == true) {
@@ -359,7 +410,7 @@ if (pathname == "/pt/games/double") {
 					rodadasGale = 0
 
 					// Entradas do vermelho/preto/branco
-					brancoEnt   = false
+					// brancoEnt   = false
 
 					console.log("Ganhou no branco")
 
@@ -368,13 +419,18 @@ if (pathname == "/pt/games/double") {
 						$.ajax({
 							url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 						})
-					}, 12000)
+					}, 10000)
 
 				}// if (brancoEnt == true && whiteWin == true)
 
 				/*******/
 
 				// if (win > 0 || loss > 0) console.log("win:", win, "loss:", loss)
+
+				// Entradas do vermelho/preto/branco
+				brancoEnt   = false
+				pretoEnt    = false
+				vermelhoEnt = false
 
 			}// if (verificaMudanca == "start")
 
@@ -384,24 +440,6 @@ if (pathname == "/pt/games/double") {
 
     /***************/
 
-	// ENTRADAS DO BRANCO
-    setInterval(function () {
-
-        if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss)) {
-
-			if (martinGale > 1 && timeLeft >= tempoMinimo+2 && timeLeft <= (tempoMax+3)) {
-
-				placeBet("white", defaultValue)
-
-			}// if (martinGale > 1 && timeLeft >= tempoMinimo && timeLeft <= tempoMax)
-
-		}// if (statusRobo == 1 && (bancaAtual < stopWin || bancaAtual > stopLoss))
-
-    }, 3000)
-
-    /***************/
-
-	// ENTRADAS DO PRETO/VERMELHO
     setInterval(function () {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
@@ -415,10 +453,12 @@ if (pathname == "/pt/games/double") {
 
 			rodadasGale = 0
 
-			let msg = "❌❌❌ STOP GALE ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
-			$.ajax({
-				url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
-			})
+			setTimeout(() => {
+				let msg = "❌❌❌ STOP GALE ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+				$.ajax({
+					url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
+				})
+			}, 10000)
 
 			console.log("STOPGALE ATINGIDO")
 
@@ -439,7 +479,7 @@ if (pathname == "/pt/games/double") {
 					$.ajax({
 						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 					})
-				}, 15000)
+				}, 10000)
 
 				console.log("STOPWIN BATIDO COM SUCESSO!")
 
@@ -457,7 +497,7 @@ if (pathname == "/pt/games/double") {
 					$.ajax({
 						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 					})
-				}, 15000)
+				}, 10000)
 
 				console.log("STOPLOSS ATINGIDO")
 
@@ -465,6 +505,16 @@ if (pathname == "/pt/games/double") {
 
             /*******/
 
+			// ENTRADAS DO BRANCO
+			if (martinGale > 1 && timeLeft >= tempoMinimo+3 && timeLeft <= (tempoMax+6)) {
+
+				placeBet("white", defaultValue)
+
+			}// if (martinGale > 1 && timeLeft >= tempoMinimo && timeLeft <= tempoMax)
+
+            /*******/
+
+			// ENTRADAS DO PRETO/VERMELHO
 			if (valorVermelho >= minimoTotal && timeLeft >= tempoMinimo && timeLeft <= tempoMax) {
             
 				// Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada

@@ -338,3 +338,29 @@ button.ligar, button.desligar {
   width: 225px;
   float: left;
 }
+
+span.input-span {
+  float: left;
+  padding: 7px;
+  padding-top: 13px;
+  color:#fff;
+  background:#343B4A;
+  margin: 4px;
+  margin-left: 10px;
+  height: 45px;
+  border-radius: 3px;
+}
+
+input.input-checkbox {
+  zoom: 130%;
+  float: right;
+  margin-top: 1px;
+  outline: 2px solid #F12C4C;
+}
+input.input-checkbox:checked {
+  outline: 2px solid #04d47c;
+}
+input.input-checkbox:checked:before{
+  background-color: #fff;
+  color: #04d47c;
+}

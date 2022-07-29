@@ -7,10 +7,11 @@ var pathname  	   = $(location).attr('pathname')
 
 if (pathname == "/pt/games/double") {
 
-	let minimoTotal = 0
-    let tempoMinimo = 1
-    let tempoMax    = 4
-    let statusRobo  = 0
+	let minimoTotal   = 0
+    let tempoMinimo   = 1
+    let tempoMax      = 4
+    let statusRobo    = 0
+	let multiplicador = 3
 
 	/*******/
 
@@ -20,11 +21,8 @@ if (pathname == "/pt/games/double") {
     let pretoWin       = false
 	let pretoEnt	   = false
 	let brancoEnt	   = false
-    // let comecarJogo    = $(".place-bet .undefined")
-    // let dobrarEntrada  = $(".double")
-    // let dividirEntrada = $(".half")
-	// let branco 		  = $(".input-wrapper .white")
-    // let brancoWin      = ""
+	let goWhite		   = $('.input-checkbox input[name=white]').attr('checked')
+	let goMartingale   = $('.input-checkbox input[name=martingale]').attr('checked')
 
 	/*******/
 
@@ -34,7 +32,6 @@ if (pathname == "/pt/games/double") {
 	let bancaAtual     = 0
 	let stopWin        = 0
 	let stopLoss       = 0
-	let multiplicador  = 3
 	let martinGale     = 1
 	let rodadasGale    = 0
 	let defaultValue   = 2
@@ -51,7 +48,9 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 1
 
-            $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
+            // $(".config-robo").html('<div class="config-robo"><button id="robo-btn" class="red desligar"><i class="fas fa-times"></i> DESLIGAR</button></div>')
+			$("div.config-robo button").removeClass('green').removeClass('ligar').addClass('red').addClass('desligar')
+			$("div.config-robo button").html('<i class="fas fa-times"></i> DESLIGAR')
 
 			let msg = "✅ ATIVADO ✅+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
@@ -62,7 +61,8 @@ if (pathname == "/pt/games/double") {
         
             statusRobo = 0
 
-            $(".config-robo").html('<div class="config-robo"><button id="header-deposit" class="green ligar"><i class="fas fa-play"></i> LIGAR</button></div>')
+			$("div.config-robo button").removeClass('red').removeClass('desligar').addClass('green').addClass('ligar')
+			$("div.config-robo button").html('<i class="fas fa-play"></i> LIGAR')
 
 			let msg = "❌ DESATIVADO ❌+%0A+BANCA ATUAL R$ " + bancaAtual + " 🚀🚀🚀"
 			$.ajax({
@@ -90,48 +90,52 @@ if (pathname == "/pt/games/double") {
 
 	}// ligaRobo
 
-	$("#casino").prepend("<div class='config-robo'><button id='header-deposit' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
-
 	/*******/
 
-	$(".config-robo").click(() => {
+	// BOTÕES DE AÇÕES
+	$("#casino").prepend("<div class='config-robo'><button id='robo-btn' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
+	$("#casino .config-robo").append("<span class='input-span'>Brancos <input type='checkbox' class='input-checkbox' name='white'></span>")
+	$("#casino .config-robo").append("<span class='input-span'>Martingale <input type='checkbox' class='input-checkbox' name='martingale'></span>")
+
+	$(".config-robo button#robo-btn").click(() => {
 		ligaRobo()
 	})// $(".config-robo")
 
 	/*******/
 
 	// FAZ A APOSTA
-	function placeBet(cor, valor) {
+	function placeBet(cor) {
 
 		// Set value
 		let cassinoValue = parseFloat($('input.input-field').val())
 
-		console.log("cor", cor)
-		console.log("valor", valor)
+		// console.log("cor", cor)
 		// console.log("defaultValue", defaultValue)
 		// console.log("cassino Value", cassinoValue)
 
-		if (valor > defaultValue) {
+		/*******/
 
-			for (let i = entradaDobrada; i > 0; i--) {
+		if (goMartingale) {
 
+			if ((defaultValue*martinGale) > cassinoValue) {
+	
 				$('button.grey.double').click()
+	
+				entradaDobrada++
+	
+			} else if (cassinoValue > defaultValue) {
+	
+				for (let i = entradaDobrada; i > 0; i--) {
+	
+					$('button.grey.half').click()
+	
+				}// for (let i = reduce; i > 0; i--)
+	
+				entradaDobrada = 0
+	
+			}// else if (cassinoValue > defaultValue)
 
-			}// for (let i = reduce; i > 0; i--)
-
-			entradaDobrada++
-
-		} else if (cassinoValue > defaultValue) {
-
-			for (let i = entradaDobrada; i > 0; i--) {
-
-				$('button.grey.half').click()
-
-			}// for (let i = reduce; i > 0; i--)
-
-			entradaDobrada = 0
-
-		}// else if (cassinoValue > defaultValue)
+		}// if (goMartingale)
 
 		/*******/
 
@@ -154,7 +158,7 @@ if (pathname == "/pt/games/double") {
 
 					/*******/
 
-					msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀 R$ " + valor
+					msg = "🔴🔴🔴 ENTROU NO VERMELHO 🔴🔴🔴+%0A+🚀🚀🚀 R$ " + parseFloat($('input.input-field').val())
 					$.ajax({
 						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 					})
@@ -186,7 +190,7 @@ if (pathname == "/pt/games/double") {
 
 					/*******/
 	
-					msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀 R$ " + valor
+					msg = "⚫️⚫️⚫️ ENTROU NO PRETO ⚫️⚫️⚫️+%0A+🚀🚀🚀 R$ " + parseFloat($('input.input-field').val())
 					$.ajax({
 						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 					})
@@ -232,7 +236,7 @@ if (pathname == "/pt/games/double") {
 
 					/*******/
 
-					msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + defaultValue
+					msg = "⚪️⚪️⚪️ ENTROU NO BRANCO ⚪️⚪️⚪️+%0A+🚀🚀🚀 R$ " + parseFloat($('input.input-field').val())
 					$.ajax({
 						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 					})
@@ -438,8 +442,9 @@ if (pathname == "/pt/games/double") {
 	
 	}, 500)
 
-    /***************/
+	/*******/
 
+	// ENTRADAS NAS CORES
     setInterval(function () {
 
 		bancaAtual = parseFloat($(".amount .currency:first").html().split('</span>')[1])
@@ -450,8 +455,6 @@ if (pathname == "/pt/games/double") {
 
 			// Delisga o robô
 			ligaRobo()
-
-			rodadasGale = 0
 
 			setTimeout(() => {
 				let msg = "❌❌❌ STOP GALE ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
@@ -493,7 +496,7 @@ if (pathname == "/pt/games/double") {
 				ligaRobo()
 
 				setTimeout(() => {
-					let msg = "❌❌❌ STOP LOSS ❌❌❌+%0A+BANCA ATUAL " + bancaAtual + " 🚀🚀🚀" + "+%0A+PLACAR ATUAL " + win + " X " + loss
+					let msg = "❌❌❌ STOP LOSS ❌❌❌+%0A+BANCA ATUAL " + bancaAtual
 					$.ajax({
 						url: "https://api.telegram.org/bot" + idbot + "/sendMessage?chat_id=" + idSalaInfinita + "&text=" + msg
 					})
@@ -508,7 +511,11 @@ if (pathname == "/pt/games/double") {
 			// ENTRADAS DO BRANCO
 			if (martinGale > 1 && timeLeft >= tempoMinimo+3 && timeLeft <= (tempoMax+6)) {
 
-				placeBet("white", defaultValue)
+				if (goWhite) {
+
+					placeBet("white")
+
+				}// if (goWhite)
 
 			}// if (martinGale > 1 && timeLeft >= tempoMinimo && timeLeft <= tempoMax)
 
@@ -520,7 +527,7 @@ if (pathname == "/pt/games/double") {
 				// Se o valor de apostas do vermelho for maior que o valor do preto vezes 3, ele valida a entrada
 				if (valorVermelho > (valorPreto * multiplicador) && vermelhoWin == false) {
 
-					placeBet("red", (defaultValue*martinGale))
+					placeBet("red")
 
 				}// if (valorVermelho > (valorPreto * multiplicador) && vermelhoWin == false)
 
@@ -529,7 +536,7 @@ if (pathname == "/pt/games/double") {
 				// Se o valor de apostas do preto for maior que o valor do vermelho vezes 3, ele valida a entrada
 				if (valorPreto > (valorVermelho * multiplicador) && pretoWin == false) {
 
-					placeBet("black", (defaultValue*martinGale))
+					placeBet("black")
 
 				}// if (valorPreto > (valorVermelho * multiplicador) && pretoWin == false)
 
@@ -542,35 +549,65 @@ if (pathname == "/pt/games/double") {
 	/*******/
 
 	// Estratégia de entrar na tendência do mercado
-	setInterval(() => {
 
-		// Separa os valores das entradas no vermelho
-		valorVermelho = document.querySelectorAll('.counter')[1].innerHTML.split('</span>')[0].split('R$ ')[1]
+	$(document).ready(() => {
 
-		// Validação se o vermelho ganhou a rodada = true
-		vermelhoWin = document.querySelectorAll('.counter')[1].childNodes[0].classList.contains("good")
+		setTimeout(() => {
 
-		/*******/
+			$("div.roulette-column.red div.header").prepend("<div id='red-percent'></div>")
+			$("div.roulette-column.black div.header").prepend("<div id='black-percent'></div>")
+			$("div.roulette-column.white div.header").prepend("<div id='white-percent'></div>")
 
-		// Separa os valores das entradas no branco
-		valorBranco = document.querySelectorAll('.counter')[3].innerHTML.split('</span>')[0].split('R$ ')[1]
+		}, 1000)
+		
+		setInterval(() => {
 
-		// Validação se o branco ganhou a rodada = true
-		brancoWin = document.querySelectorAll('.counter')[3].childNodes[0].classList.contains("good")
+			// Separa os valores das entradas no vermelho
+			valorVermelho = document.querySelectorAll('.counter')[1].innerHTML.split('</span>')[0].split('R$ ')[1]
 
-		/*******/
+			// Validação se o vermelho ganhou a rodada = true
+			vermelhoWin = document.querySelectorAll('.counter')[1].childNodes[0].classList.contains("good")
 
-		// Separa os valores das entradas no preto
-		valorPreto = document.querySelectorAll('.counter')[5].innerHTML.split('</span>')[0].split('R$ ')[1]
+			/*******/
 
-		// Validação se o preto ganhou a rodada = true
-		pretoWin = document.querySelectorAll('.counter')[5].childNodes[0].classList.contains("good")
+			// Separa os valores das entradas no branco
+			valorBranco = document.querySelectorAll('.counter')[3].innerHTML.split('</span>')[0].split('R$ ')[1]
 
-		/*******/
+			// Validação se o branco ganhou a rodada = true
+			brancoWin = document.querySelectorAll('.counter')[3].childNodes[0].classList.contains("good")
 
-		// Separa o contador para poder efetuar a entrada
-		timeLeft = document.querySelector('.time-left span').innerHTML.split(':')[0]
+			/*******/
 
-	}, 500)
+			// Separa os valores das entradas no preto
+			valorPreto = document.querySelectorAll('.counter')[5].innerHTML.split('</span>')[0].split('R$ ')[1]
+
+			// Validação se o preto ganhou a rodada = true
+			pretoWin = document.querySelectorAll('.counter')[5].childNodes[0].classList.contains("good")
+
+			/*******/
+
+			let redPercent   = Number(Number(valorVermelho)/Number(valorPreto)).toFixed(2)
+			let blackPercent = Number(Number(valorPreto)/Number(valorVermelho)).toFixed(2)
+			let whitePercent = Number(Number(valorBranco)/(Number(valorPreto)+Number(valorVermelho))).toFixed(2)
+
+			if (redPercent >= 1)   document.querySelector('#red-percent').style.color   = 'red'
+			if (redPercent < 1)    document.querySelector('#red-percent').style.color   = 'white'
+			if (blackPercent >= 1) document.querySelector('#black-percent').style.color = 'red'
+			if (blackPercent < 1)  document.querySelector('#black-percent').style.color = 'white'
+			if (whitePercent >= 1) document.querySelector('#white-percent').style.color = 'red'
+			if (whitePercent < 1)  document.querySelector('#white-percent').style.color = 'white'
+
+			document.querySelector('#red-percent').innerHTML   = redPercent + 'x'
+			document.querySelector('#black-percent').innerHTML = blackPercent + 'x'
+			document.querySelector('#white-percent').innerHTML = whitePercent + 'x'
+
+			/*******/
+
+			// Separa o contador para poder efetuar a entrada
+			timeLeft = document.querySelector('.time-left span').innerHTML.split(':')[0]
+
+		}, 500)
+
+	})// $(document).ready
 
 }// if (pathname == "/pt/games/double")

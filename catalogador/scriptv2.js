@@ -21,8 +21,6 @@ if (pathname == "/pt/games/double") {
     let pretoWin       = false
 	let pretoEnt	   = false
 	let brancoEnt	   = false
-	let goWhite		   = $('.input-checkbox input[name=white]').attr('checked')
-	let goMartingale   = $('.input-checkbox input[name=martingale]').attr('checked')
 
 	/*******/
 
@@ -94,8 +92,8 @@ if (pathname == "/pt/games/double") {
 
 	// BOTÕES DE AÇÕES
 	$("#casino").prepend("<div class='config-robo'><button id='robo-btn' class='green ligar'><i class='fas fa-play'></i> LIGAR</button></div>")
-	$("#casino .config-robo").append("<span class='input-span'>Brancos <input type='checkbox' class='input-checkbox' name='white'></span>")
-	$("#casino .config-robo").append("<span class='input-span'>Martingale <input type='checkbox' class='input-checkbox' name='martingale'></span>")
+	$("#casino .config-robo").append("<span class='input-span'>Brancos <input type='checkbox' class='input-checkbox' id='input-white' name='white'></span>")
+	$("#casino .config-robo").append("<span class='input-span'>Martingale <input type='checkbox' class='input-checkbox' id='input-martingale' name='martingale'></span>")
 
 	$(".config-robo button#robo-btn").click(() => {
 		ligaRobo()
@@ -112,6 +110,7 @@ if (pathname == "/pt/games/double") {
 		// console.log("cor", cor)
 		// console.log("defaultValue", defaultValue)
 		// console.log("cassino Value", cassinoValue)
+		let goMartingale = $('#input-martingale').is(":checked")
 
 		/*******/
 
@@ -510,6 +509,8 @@ if (pathname == "/pt/games/double") {
 
 			// ENTRADAS DO BRANCO
 			if (martinGale > 1 && timeLeft >= tempoMinimo+3 && timeLeft <= (tempoMax+6)) {
+				
+				let goWhite = $('#input-white').is(":checked")
 
 				if (goWhite) {
 
